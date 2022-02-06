@@ -50,10 +50,9 @@ class _HomeState extends State<Home> {
       sections: [
         ScrollSection(
           name: NavigationHeaders.e1547.name,
-          title: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0),
-            child: Wrap(
-              // mainAxisSize: MainAxisSize.min,
+          title: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Material(
                   shape: const CircleBorder(),
@@ -66,41 +65,23 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: TextRenderer(
-                        element: HeadingElement.h1(),
-                        text: Text(
-                          appTitle,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3
-                              ?.copyWith(color: Colors.white, shadows: [
-                            const Shadow(
-                              offset: Offset(0, 8),
-                              blurRadius: 6,
-                            ),
-                          ]),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: TextRenderer(
+                    element: HeadingElement.h1(),
+                    text: Text(
+                      appTitle,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline3
+                          ?.copyWith(color: Colors.white, shadows: [
+                        const Shadow(
+                          offset: Offset(0, 8),
+                          blurRadius: 6,
                         ),
-                      ),
+                      ]),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: TextRenderer(
-                        text: Text(
-                          'A sophisticated e621 experience for android and iOS\n\n',
-                          style:
-                              Theme.of(context).textTheme.bodyText2?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
@@ -110,6 +91,14 @@ class _HomeState extends State<Home> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const TextRenderer(
+                  text: Text(
+                    'A sophisticated e621 experience for android and iOS\n\n',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 ScreenshotGallery(
                   assets: {
                     for (final e in assetNames) e: 'assets/screenshots/$e.png'
