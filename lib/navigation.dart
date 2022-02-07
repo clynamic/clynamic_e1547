@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class NavigationList extends StatelessWidget {
   final AnchorScrollController scrollController;
-  final List<ScrollSection> sections;
+  final List<PositionedListItem> sections;
   final Widget? title;
 
   const NavigationList({
@@ -37,7 +37,13 @@ class NavigationList extends StatelessWidget {
                     appBar: BackdropAppBar(
                       title: title,
                       automaticallyImplyLeading: false,
-                      actions: const [BackdropToggleButton()],
+                      actions: [
+                        Tooltip(
+                          message: MaterialLocalizations.of(context)
+                              .openAppDrawerTooltip,
+                          child: const NavigationToggleButton(),
+                        ),
+                      ],
                     ),
                     frontLayerElevation: 4,
                     frontLayerScrim: Colors.black54,
@@ -181,4 +187,45 @@ class _NavigationTitleState extends State<NavigationTitle> {
       ),
     );
   }
+}
+
+class NavigationToggleButton extends StatelessWidget {
+  const NavigationToggleButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.close_menu,
+        progress: Backdrop.of(context).animationController.view,
+      ),
+      tooltip: Backdrop.of(context).isBackLayerConcealed
+          ? MaterialLocalizations.of(context).openAppDrawerTooltip
+          : MaterialLocalizations.of(context).closeButtonTooltip,
+      onPressed: () => Backdrop.of(context).fling(),
+    );
+  }
+}
+
+class MaterialTransparentRoute<T> extends PageRoute<T>
+    with MaterialRouteTransitionMixin<T> {
+  MaterialTransparentRoute({
+    required this.builder,
+    RouteSettings? settings,
+    this.maintainState = true,
+    bool fullscreenDialog = false,
+  }) : super(settings: settings, fullscreenDialog: fullscreenDialog);
+
+  final WidgetBuilder builder;
+
+  @override
+  Widget buildContent(BuildContext context) => builder(context);
+
+  @override
+  bool get opaque => false;
+
+  @override
+  final bool maintainState;
 }

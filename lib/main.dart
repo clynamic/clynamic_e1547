@@ -48,7 +48,7 @@ class _HomeState extends State<Home> {
           NavigationTitle(title: appTitle, scrollController: scrollController),
       scrollController: scrollController,
       sections: [
-        ScrollSection(
+        PositionedListItem(
           name: NavigationHeaders.e1547.name,
           title: Center(
             child: Column(
@@ -97,7 +97,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              ScreenshotGallery(
+              ScreenshotInlineGallery(
                 assets: {
                   for (final e in assetNames) e: 'assets/screenshots/$e.png'
                 },
@@ -105,7 +105,7 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
-        ScrollSection(
+        PositionedListItem(
           name: NavigationHeaders.Features.name,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -117,7 +117,7 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        ScrollSection(
+        PositionedListItem(
           name: NavigationHeaders.Download.name,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -129,7 +129,7 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        ScrollSection(
+        PositionedListItem(
           name: NavigationHeaders.Social.name,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),

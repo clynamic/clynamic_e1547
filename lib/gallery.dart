@@ -2,23 +2,95 @@ import 'package:clynamic/scrolling.dart';
 import 'package:clynamic/theme.dart';
 import 'package:flutter/material.dart';
 
-class ScreenshotGallery extends StatefulWidget {
+import 'navigation.dart';
+
+class ScreenshotInlineGallery extends StatelessWidget {
   final Map<String, String> assets;
 
-  const ScreenshotGallery({Key? key, required this.assets}) : super(key: key);
+  const ScreenshotInlineGallery({Key? key, required this.assets})
+      : super(key: key);
 
-  @override
-  _ScreenshotGalleryState createState() => _ScreenshotGalleryState();
-}
-
-class _ScreenshotGalleryState extends State<ScreenshotGallery> {
   @override
   Widget build(BuildContext context) {
-    return ListInset(
+    return ExpandableCardInset(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 42),
-        child: GalleryPageView(
-          assets: widget.assets,
+        child: SizedBox(
+          height: 400,
+          child: GalleryPageView(
+            assets: assets,
+            aspectRatio: 0.47,
+            tileWidth: 190,
+            padEnds: false,
+            onTap: (index) {
+              showScreenshotFullscreenGallery(
+                context,
+                assets,
+                PageController(initialPage: index),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+void showScreenshotFullscreenGallery(
+  BuildContext context,
+  Map<String, String> assets,
+  PageController? controller,
+) {
+  Navigator.of(context).push(
+    MaterialTransparentRoute(
+      builder: (context) => ScreenshotFullscreenGallery(
+        assets: assets,
+        controller: controller,
+      ),
+    ),
+  );
+}
+
+class ScreenshotFullscreenGallery extends StatelessWidget {
+  final Map<String, String> assets;
+  final PageController? controller;
+
+  const ScreenshotFullscreenGallery(
+      {Key? key, required this.assets, this.controller})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: const [
+          CloseButton(),
+        ],
+        backgroundColor: Colors.transparent,
+        flexibleSpace: const IgnorePointer(),
+        elevation: 0,
+      ),
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.black87,
+      body: GestureDetector(
+        onTap: () {
+          Navigator.of(context).maybePop();
+        },
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 1000,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 60),
+              child: GalleryPageView(
+                aspectRatio: 0.47,
+                assets: assets,
+                controller: controller,
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -27,22 +99,54 @@ class _ScreenshotGalleryState extends State<ScreenshotGallery> {
 
 class GalleryPageView extends StatefulWidget {
   final Map<String, String> assets;
+  final bool padEnds;
+  final double aspectRatio;
+  final double? tileWidth;
+  final double? viewportFraction;
+  final void Function(int index)? onTap;
+  final PageController? controller;
 
-  const GalleryPageView({Key? key, required this.assets}) : super(key: key);
+  GalleryPageView({
+    Key? key,
+    required this.assets,
+    this.padEnds = true,
+    this.aspectRatio = 1,
+    this.tileWidth,
+    this.viewportFraction,
+    this.onTap,
+    this.controller,
+  }) : super(key: key) {
+    assert(tileWidth == null || viewportFraction == null,
+        'Cannot specify tileWidth and viewportFraction');
+  }
 
   @override
   _GalleryPageViewState createState() => _GalleryPageViewState();
 }
 
 class _GalleryPageViewState extends State<GalleryPageView> {
-  PageController pageController = PageController();
-  final double tileWidth = 190;
+  late PageController controller = widget.controller ?? PageController();
+
+  @override
+  void didUpdateWidget(covariant GalleryPageView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.controller != widget.controller) {
+      controller = widget.controller ?? PageController();
+    }
+  }
 
   void updatePageController(double maxWidth) {
     double oneOrHigher(double value) => (value > 1) ? 1 : value;
-    double updated = oneOrHigher(tileWidth / maxWidth);
-    if (updated != pageController.viewportFraction) {
-      pageController = PageController(
+    double updated;
+    if (widget.viewportFraction != null) {
+      updated = widget.viewportFraction!;
+    } else if (widget.tileWidth != null) {
+      updated = oneOrHigher(widget.tileWidth! / maxWidth);
+    } else {
+      updated = 1;
+    }
+    if (updated != controller.viewportFraction) {
+      controller = PageController(
         viewportFraction: updated,
       );
     }
@@ -50,71 +154,74 @@ class _GalleryPageViewState extends State<GalleryPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400,
-      child: ScrollConfiguration(
-        behavior: const DesktopScrollBehaviour(),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            updatePageController(constraints.maxWidth);
-            return Row(
-              children: [
-                GalleryPageButton(
-                  controller: pageController,
-                  direction: GalleryButtonDirection.left,
-                ),
-                Expanded(
-                  child: PageView.builder(
-                    padEnds: false,
-                    controller: pageController,
-                    itemCount: widget.assets.length,
-                    itemBuilder: (context, index) => Column(
-                      children: [
-                        Expanded(
-                          child: Card(
-                            elevation: 8,
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Positioned.fill(
-                                  child: Hero(
-                                    tag:
-                                        'asset_${widget.assets.keys.toList()[index]}',
-                                    child: Image.asset(
-                                      widget.assets.values.toList()[index],
-                                      fit: BoxFit.cover,
+    return ScrollConfiguration(
+      behavior: const DesktopScrollBehaviour(),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          updatePageController(constraints.maxWidth);
+          return Row(
+            children: [
+              GalleryPageButton(
+                controller: controller,
+                direction: GalleryButtonDirection.left,
+              ),
+              Expanded(
+                child: PageView.builder(
+                  padEnds: widget.padEnds,
+                  controller: controller,
+                  itemCount: widget.assets.length,
+                  itemBuilder: (context, index) => Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Flexible(
+                        child: Center(
+                          child: Hero(
+                            tag: 'asset_${widget.assets.keys.toList()[index]}',
+                            child: AspectRatio(
+                              aspectRatio: widget.aspectRatio,
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                color: Theme.of(context).backgroundColor,
+                                elevation: 8,
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    Positioned.fill(
+                                      child: Image.asset(
+                                        widget.assets.values.toList()[index],
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                  ),
+                                    Material(
+                                      type: MaterialType.transparency,
+                                      child: InkWell(
+                                        onTap: widget.onTap != null
+                                            ? () => widget.onTap?.call(index)
+                                            : null,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                Material(
-                                  type: MaterialType.transparency,
-                                  child: InkWell(
-                                    onTap: () {
-                                      print(
-                                          'gallery pressed: ${widget.assets.keys.toList()[index]}');
-                                    },
-                                  ),
-                                )
-                              ],
+                              ),
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Text(widget.assets.keys.toList()[index]),
-                        ),
-                      ],
-                    ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text(widget.assets.keys.toList()[index]),
+                      ),
+                    ],
                   ),
                 ),
-                GalleryPageButton(
-                  controller: pageController,
-                  direction: GalleryButtonDirection.right,
-                ),
-              ],
-            );
-          },
-        ),
+              ),
+              GalleryPageButton(
+                controller: controller,
+                direction: GalleryButtonDirection.right,
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -139,6 +246,17 @@ class GalleryPageButton extends StatefulWidget {
 
 class _GalleryPageButtonState extends State<GalleryPageButton> {
   bool dimButton = true;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      if (widget.controller.hasClients &&
+          widget.controller.position.hasContentDimensions) {
+        setState(() {});
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

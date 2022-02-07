@@ -3,12 +3,12 @@ import 'package:anchor_scroll_controller/anchor_scroll_wrapper.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
-class ScrollSection {
+class PositionedListItem {
   final String name;
   final Widget? title;
   final Widget child;
 
-  ScrollSection({
+  PositionedListItem({
     required this.name,
     required this.child,
     this.title,
@@ -17,7 +17,7 @@ class ScrollSection {
 
 class PositionedListView extends StatelessWidget {
   final AnchorScrollController scrollController;
-  final List<ScrollSection> sections;
+  final List<PositionedListItem> sections;
 
   const PositionedListView({
     Key? key,
@@ -30,7 +30,7 @@ class PositionedListView extends StatelessWidget {
     return ListView.builder(
       controller: scrollController,
       itemCount: sections.length,
-      itemBuilder: (context, index) => ListSection(
+      itemBuilder: (context, index) => PositionedListSection(
         title: sections[index].title ?? Text(sections[index].name),
         index: index,
         controller: scrollController,
@@ -40,13 +40,13 @@ class PositionedListView extends StatelessWidget {
   }
 }
 
-class ListSection extends StatelessWidget {
+class PositionedListSection extends StatelessWidget {
   final Widget title;
   final int index;
   final Widget child;
   final AnchorScrollController controller;
 
-  const ListSection({
+  const PositionedListSection({
     Key? key,
     required this.title,
     required this.index,
@@ -76,27 +76,36 @@ class ListSection extends StatelessWidget {
   }
 }
 
-class ListInset extends StatelessWidget {
+class ExpandableCardInset extends StatelessWidget {
   final Widget? title;
   final Widget child;
   final bool allowCollapse;
+  final Color? insideColor;
+  final Color? outsideColor;
+  final BorderRadius? borderRadius;
 
-  ListInset(
-      {Key? key, required this.child, this.title, this.allowCollapse = false})
-      : super(key: key);
-
-  final Color insideColor = Colors.grey[900]!;
-  final BorderRadius borderRadius = const BorderRadius.only(
-    bottomLeft: Radius.circular(32),
-    bottomRight: Radius.circular(32),
-  );
+  const ExpandableCardInset({
+    Key? key,
+    required this.child,
+    this.title,
+    this.allowCollapse = false,
+    this.insideColor,
+    this.outsideColor,
+    this.borderRadius,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    BorderRadius borderRadius = this.borderRadius ??
+        const BorderRadius.only(
+          bottomLeft: Radius.circular(32),
+          bottomRight: Radius.circular(32),
+        );
+
     Widget header() {
       return Material(
         clipBehavior: Clip.antiAlias,
-        color: Theme.of(context).backgroundColor,
+        color: outsideColor ?? Theme.of(context).backgroundColor,
         borderRadius: borderRadius,
         elevation: 4,
         child: Opacity(
@@ -129,7 +138,7 @@ class ListInset extends StatelessWidget {
         child: Container(
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            color: insideColor,
+            color: insideColor ?? Colors.grey[900]!,
             borderRadius: borderRadius,
           ),
           child: Expandable(
