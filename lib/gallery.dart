@@ -1,3 +1,4 @@
+import 'package:clynamic/scrolling.dart';
 import 'package:clynamic/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -11,9 +12,31 @@ class ScreenshotGallery extends StatefulWidget {
 }
 
 class _ScreenshotGalleryState extends State<ScreenshotGallery> {
+  @override
+  Widget build(BuildContext context) {
+    return ListInset(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 42),
+        child: GalleryPageView(
+          assets: widget.assets,
+        ),
+      ),
+    );
+  }
+}
+
+class GalleryPageView extends StatefulWidget {
+  final Map<String, String> assets;
+
+  const GalleryPageView({Key? key, required this.assets}) : super(key: key);
+
+  @override
+  _GalleryPageViewState createState() => _GalleryPageViewState();
+}
+
+class _GalleryPageViewState extends State<GalleryPageView> {
   PageController pageController = PageController();
-  final double tileWidth = 180;
-  final double buttonThreshold = 600;
+  final double tileWidth = 190;
 
   void updatePageController(double maxWidth) {
     double oneOrHigher(double value) => (value > 1) ? 1 : value;
@@ -34,14 +57,12 @@ class _ScreenshotGalleryState extends State<ScreenshotGallery> {
         child: LayoutBuilder(
           builder: (context, constraints) {
             updatePageController(constraints.maxWidth);
-            bool showButtons = constraints.maxWidth > buttonThreshold;
             return Row(
               children: [
-                if (showButtons)
-                  GalleryPageButton(
-                    controller: pageController,
-                    direction: GalleryButtonDirection.left,
-                  ),
+                GalleryPageButton(
+                  controller: pageController,
+                  direction: GalleryButtonDirection.left,
+                ),
                 Expanded(
                   child: PageView.builder(
                     padEnds: false,
@@ -56,9 +77,13 @@ class _ScreenshotGalleryState extends State<ScreenshotGallery> {
                               clipBehavior: Clip.none,
                               children: [
                                 Positioned.fill(
-                                  child: Image.asset(
-                                    widget.assets.values.toList()[index],
-                                    fit: BoxFit.cover,
+                                  child: Hero(
+                                    tag:
+                                        'asset_${widget.assets.keys.toList()[index]}',
+                                    child: Image.asset(
+                                      widget.assets.values.toList()[index],
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 Material(
@@ -82,11 +107,10 @@ class _ScreenshotGalleryState extends State<ScreenshotGallery> {
                     ),
                   ),
                 ),
-                if (showButtons)
-                  GalleryPageButton(
-                    controller: pageController,
-                    direction: GalleryButtonDirection.right,
-                  ),
+                GalleryPageButton(
+                  controller: pageController,
+                  direction: GalleryButtonDirection.right,
+                ),
               ],
             );
           },
@@ -114,7 +138,7 @@ class GalleryPageButton extends StatefulWidget {
 }
 
 class _GalleryPageButtonState extends State<GalleryPageButton> {
-  bool dim = true;
+  bool dimButton = true;
 
   @override
   Widget build(BuildContext context) {
@@ -155,20 +179,12 @@ class _GalleryPageButtonState extends State<GalleryPageButton> {
                 child: IgnorePointer(
                   ignoring: !enabled,
                   child: MouseRegion(
-                    onEnter: (event) {
-                      setState(() {
-                        dim = false;
-                      });
-                    },
-                    onExit: (event) {
-                      setState(() {
-                        dim = true;
-                      });
-                    },
+                    onEnter: (event) => setState(() => dimButton = false),
+                    onExit: (event) => setState(() => dimButton = true),
                     child: TweenAnimationBuilder<Color?>(
                       tween: ColorTween(
                         begin: Colors.grey,
-                        end: dim
+                        end: dimButton
                             ? Colors.grey
                             : Theme.of(context).iconTheme.color,
                       ),

@@ -86,26 +86,23 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const TextRenderer(
-                  text: Text(
-                    'A sophisticated e621 experience for android and iOS\n\n',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const TextRenderer(
+                text: Text(
+                  'A sophisticated e621 experience for android and iOS\n\n',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                ScreenshotGallery(
-                  assets: {
-                    for (final e in assetNames) e: 'assets/screenshots/$e.png'
-                  },
-                ),
-              ],
-            ),
+              ),
+              ScreenshotGallery(
+                assets: {
+                  for (final e in assetNames) e: 'assets/screenshots/$e.png'
+                },
+              ),
+            ],
           ),
         ),
         ScrollSection(

@@ -8,6 +8,7 @@ Color? naturalColorLerp(Color a, Color b, double t) {
 }
 
 const Color accent = Color(0xFFFFC107);
+const Color background = Color(0xFFFDB245);
 
 const MaterialColor primarySwatch = MaterialColor(
   0xFFFCB328,
@@ -29,7 +30,7 @@ final ThemeData appTheme = ThemeData.from(
   colorScheme: ColorScheme.fromSwatch(
     primarySwatch: primarySwatch,
     accentColor: accent,
-    cardColor: const Color(0xFFFDB245),
+    cardColor: background,
     backgroundColor: const Color.fromARGB(255, 20, 20, 20),
     brightness: Brightness.dark,
   ),
