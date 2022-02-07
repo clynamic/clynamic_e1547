@@ -107,6 +107,7 @@ class _HomeState extends State<Home> {
         ),
         PositionedListItem(
           name: NavigationHeaders.Features.name,
+          title: const Text('Features'),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Column(
@@ -119,6 +120,7 @@ class _HomeState extends State<Home> {
         ),
         PositionedListItem(
           name: NavigationHeaders.Download.name,
+          title: const Text('Download'),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Column(
@@ -131,6 +133,7 @@ class _HomeState extends State<Home> {
         ),
         PositionedListItem(
           name: NavigationHeaders.Social.name,
+          title: const Text('Social'),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Column(

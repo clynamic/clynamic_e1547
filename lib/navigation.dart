@@ -48,7 +48,7 @@ class NavigationList extends StatelessWidget {
                     frontLayerElevation: 4,
                     frontLayerScrim: Colors.black54,
                     backLayer: NavigationBackLayer(
-                      headers: sections.map((e) => e.name).toList(),
+                      sections: sections,
                       scrollController: scrollController,
                     ),
                     frontLayer: PositionedListView(
@@ -67,35 +67,40 @@ class NavigationList extends StatelessWidget {
 }
 
 class NavigationBackLayer extends StatelessWidget {
-  final List<String> headers;
+  final List<PositionedListItem> sections;
   final AnchorScrollController scrollController;
 
-  const NavigationBackLayer(
-      {Key? key, required this.headers, required this.scrollController})
-      : super(key: key);
+  const NavigationBackLayer({
+    Key? key,
+    required this.sections,
+    required this.scrollController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [];
-    for (String header in headers) {
-      children.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                Backdrop.of(context).concealBackLayer();
-                scrollController.scrollToIndex(index: headers.indexOf(header));
-              },
-              child: Text(
-                header,
-                style: Theme.of(context).textTheme.headline5,
+    for (final section in sections) {
+      if (section.name != null) {
+        children.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () {
+                  Backdrop.of(context).concealBackLayer();
+                  scrollController.scrollToIndex(
+                      index: sections.indexOf(section));
+                },
+                child: Text(
+                  section.name!,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
               ),
             ),
           ),
-        ),
-      );
+        );
+      }
     }
 
     List<Widget> separated = [];

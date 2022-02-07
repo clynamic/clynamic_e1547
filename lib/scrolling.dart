@@ -4,13 +4,13 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 class PositionedListItem {
-  final String name;
+  final String? name;
   final Widget? title;
   final Widget child;
 
   PositionedListItem({
-    required this.name,
     required this.child,
+    this.name,
     this.title,
   });
 }
@@ -31,7 +31,7 @@ class PositionedListView extends StatelessWidget {
       controller: scrollController,
       itemCount: sections.length,
       itemBuilder: (context, index) => PositionedListSection(
-        title: sections[index].title ?? Text(sections[index].name),
+        title: sections[index].title,
         index: index,
         controller: scrollController,
         child: sections[index].child,
@@ -41,8 +41,8 @@ class PositionedListView extends StatelessWidget {
 }
 
 class PositionedListSection extends StatelessWidget {
-  final Widget title;
   final int index;
+  final Widget? title;
   final Widget child;
   final AnchorScrollController controller;
 
