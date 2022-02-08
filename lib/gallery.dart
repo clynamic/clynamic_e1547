@@ -29,7 +29,7 @@ class ScreenshotInlineGallery extends StatelessWidget {
                 showScreenshotFullscreenGallery(
                   context,
                   assets,
-                  PageController(initialPage: index),
+                  index,
                 );
               },
             ),
@@ -43,13 +43,13 @@ class ScreenshotInlineGallery extends StatelessWidget {
 void showScreenshotFullscreenGallery(
   BuildContext context,
   Map<String, String> assets,
-  PageController? controller,
+  int? initialIndex,
 ) {
   Navigator.of(context).push(
     MaterialTransparentRoute(
       builder: (context) => ScreenshotFullscreenGallery(
         assets: assets,
-        controller: controller,
+        initialIndex: initialIndex,
       ),
     ),
   );
@@ -57,10 +57,10 @@ void showScreenshotFullscreenGallery(
 
 class ScreenshotFullscreenGallery extends StatelessWidget {
   final Map<String, String> assets;
-  final PageController? controller;
+  final int? initialIndex;
 
   const ScreenshotFullscreenGallery(
-      {Key? key, required this.assets, this.controller})
+      {Key? key, required this.assets, this.initialIndex})
       : super(key: key);
 
   @override
@@ -89,7 +89,7 @@ class ScreenshotFullscreenGallery extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 60),
               child: GalleryPageView(
-                controller: controller,
+                initialIndex: initialIndex ?? 0,
                 itemCount: assets.length,
                 builder: (context, index) => ScreenshotCard(
                   aspectRatio: 0.47,
@@ -171,7 +171,7 @@ class GalleryPageView extends StatefulWidget {
   final double? viewportFraction;
   final int? itemCount;
   final IndexedWidgetBuilder builder;
-  final PageController? controller;
+  final int initialIndex;
 
   GalleryPageView({
     Key? key,
@@ -180,7 +180,7 @@ class GalleryPageView extends StatefulWidget {
     this.padEnds = true,
     this.tileWidth,
     this.viewportFraction,
-    this.controller,
+    this.initialIndex = 0,
   }) : super(key: key) {
     assert(tileWidth == null || viewportFraction == null,
         'Cannot specify tileWidth and viewportFraction');
@@ -191,15 +191,8 @@ class GalleryPageView extends StatefulWidget {
 }
 
 class _GalleryPageViewState extends State<GalleryPageView> {
-  late PageController controller = widget.controller ?? PageController();
-
-  @override
-  void didUpdateWidget(covariant GalleryPageView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.controller != widget.controller) {
-      controller = widget.controller ?? PageController();
-    }
-  }
+  late PageController controller =
+      PageController(initialPage: widget.initialIndex);
 
   void updatePageController(double maxWidth) {
     double oneOrHigher(double value) => (value > 1) ? 1 : value;
@@ -315,47 +308,50 @@ class _GalleryPageButtonState extends State<GalleryPageButton> {
         return AnimatedOpacity(
           opacity: enabled ? 1 : 0,
           duration: const Duration(milliseconds: 200),
-          child: Column(
-            children: [
-              Expanded(
-                child: IgnorePointer(
-                  ignoring: !enabled,
-                  child: MouseRegion(
-                    onEnter: (event) => setState(() => dimButton = false),
-                    onExit: (event) => setState(() => dimButton = true),
-                    child: TweenAnimationBuilder<Color?>(
-                      tween: ColorTween(
-                        begin: Colors.grey,
-                        end: dimButton
-                            ? Colors.grey
-                            : Theme.of(context).iconTheme.color,
-                      ),
-                      duration: const Duration(milliseconds: 100),
-                      builder: (context, value, child) => IconButton(
-                        onPressed: () {
-                          int page = widget.controller.page!.round();
-                          switch (widget.direction) {
-                            case GalleryButtonDirection.left:
-                              page--;
-                              break;
-                            case GalleryButtonDirection.right:
-                              page++;
-                              break;
-                          }
-                          widget.controller.animateToPage(
-                            page,
-                            duration: const Duration(milliseconds: 200),
-                            curve: Curves.easeInOut,
-                          );
-                        },
-                        icon: getIcon(),
-                        color: value,
+          child: Material(
+            type: MaterialType.transparency,
+            child: Column(
+              children: [
+                Expanded(
+                  child: IgnorePointer(
+                    ignoring: !enabled,
+                    child: MouseRegion(
+                      onEnter: (event) => setState(() => dimButton = false),
+                      onExit: (event) => setState(() => dimButton = true),
+                      child: TweenAnimationBuilder<Color?>(
+                        tween: ColorTween(
+                          begin: Colors.grey,
+                          end: dimButton
+                              ? Colors.grey
+                              : Theme.of(context).iconTheme.color,
+                        ),
+                        duration: const Duration(milliseconds: 100),
+                        builder: (context, value, child) => IconButton(
+                          onPressed: () {
+                            int page = widget.controller.page!.round();
+                            switch (widget.direction) {
+                              case GalleryButtonDirection.left:
+                                page--;
+                                break;
+                              case GalleryButtonDirection.right:
+                                page++;
+                                break;
+                            }
+                            widget.controller.animateToPage(
+                              page,
+                              duration: const Duration(milliseconds: 200),
+                              curve: Curves.easeInOut,
+                            );
+                          },
+                          icon: getIcon(),
+                          color: value,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
