@@ -123,10 +123,7 @@ class ExpandableCardInset extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BorderRadius borderRadius = this.borderRadius ??
-        const BorderRadius.only(
-          bottomLeft: Radius.circular(32),
-          bottomRight: Radius.circular(32),
-        );
+        const BorderRadius.vertical(bottom: Radius.circular(16));
 
     Widget header() {
       return Material(

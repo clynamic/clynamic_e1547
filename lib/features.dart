@@ -39,21 +39,23 @@ class _FeatureDisplayState extends State<FeatureDisplay> {
           children: [
             PositionedListHeader(
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.ideographic,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text.rich(
-                    TextSpan(
-                      children: [
-                        const TextSpan(text: 'Features'),
-                        if (selected == null)
-                          const TextSpan(
-                            text: '  (tap any)',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
-                            ),
-                          ),
-                      ],
+                  const Text('Features'),
+                  AnimatedOpacity(
+                    opacity: selected == null ? 1 : 0,
+                    duration: const Duration(milliseconds: 200),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        '(tap any)',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
+                      ),
                     ),
                   ),
                 ],
