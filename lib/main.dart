@@ -1,10 +1,9 @@
-import 'dart:html';
-
 import 'package:anchor_scroll_controller/anchor_scroll_controller.dart';
 import 'package:clynamic/scrolling.dart';
+import 'package:clynamic/seo/seo.dart';
 import 'package:clynamic/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:seo_renderer/seo_renderer.dart';
+import 'package:seo_renderer/helpers/utils.dart';
 
 import 'features.dart';
 import 'gallery.dart';
@@ -68,8 +67,8 @@ class _HomeState extends State<Home> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16),
-                  child: TextRenderer(
-                    element: HeadingElement.h1(),
+                  child: HtmlText(
+                    type: HtmlTextType.header1,
                     text: Text(
                       appTitle,
                       style: Theme.of(context)
@@ -90,7 +89,7 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const TextRenderer(
+              const HtmlText(
                 text: Text(
                   'A sophisticated e621 experience for android and iOS\n\n',
                   style: TextStyle(
