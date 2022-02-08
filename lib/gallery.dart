@@ -18,17 +18,21 @@ class ScreenshotInlineGallery extends StatelessWidget {
         child: SizedBox(
           height: 400,
           child: GalleryPageView(
-            assets: assets,
-            aspectRatio: 0.47,
             tileWidth: 190,
             padEnds: false,
-            onTap: (index) {
-              showScreenshotFullscreenGallery(
-                context,
-                assets,
-                PageController(initialPage: index),
-              );
-            },
+            itemCount: assets.length,
+            builder: (context, index) => ScreenshotCard(
+              aspectRatio: 0.47,
+              assetPath: assets.values.toList()[index],
+              name: assets.keys.toList()[index],
+              onTap: () {
+                showScreenshotFullscreenGallery(
+                  context,
+                  assets,
+                  PageController(initialPage: index),
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -85,9 +89,13 @@ class ScreenshotFullscreenGallery extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 60),
               child: GalleryPageView(
-                aspectRatio: 0.47,
-                assets: assets,
                 controller: controller,
+                itemCount: assets.length,
+                builder: (context, index) => ScreenshotCard(
+                  aspectRatio: 0.47,
+                  assetPath: assets.values.toList()[index],
+                  name: assets.keys.toList()[index],
+                ),
               ),
             ),
           ),
@@ -97,23 +105,81 @@ class ScreenshotFullscreenGallery extends StatelessWidget {
   }
 }
 
-class GalleryPageView extends StatefulWidget {
-  final Map<String, String> assets;
-  final bool padEnds;
+class ScreenshotCard extends StatelessWidget {
+  final String assetPath;
+  final String name;
+  final VoidCallback? onTap;
   final double aspectRatio;
+
+  const ScreenshotCard({
+    Key? key,
+    required this.assetPath,
+    required this.name,
+    this.aspectRatio = 1,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Flexible(
+          child: Center(
+            child: Hero(
+              tag: 'screenshot_$name',
+              child: AspectRatio(
+                aspectRatio: aspectRatio,
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  color: Theme.of(context).backgroundColor,
+                  elevation: 8,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Positioned.fill(
+                        child: Image.asset(
+                          assetPath,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: InkWell(
+                          onTap: onTap,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4),
+          child: Text(name),
+        ),
+      ],
+    );
+  }
+}
+
+class GalleryPageView extends StatefulWidget {
+  final bool padEnds;
   final double? tileWidth;
   final double? viewportFraction;
-  final void Function(int index)? onTap;
+  final int? itemCount;
+  final IndexedWidgetBuilder builder;
   final PageController? controller;
 
   GalleryPageView({
     Key? key,
-    required this.assets,
+    required this.builder,
+    this.itemCount,
     this.padEnds = true,
-    this.aspectRatio = 1,
     this.tileWidth,
     this.viewportFraction,
-    this.onTap,
     this.controller,
   }) : super(key: key) {
     assert(tileWidth == null || viewportFraction == null,
@@ -169,50 +235,8 @@ class _GalleryPageViewState extends State<GalleryPageView> {
                 child: PageView.builder(
                   padEnds: widget.padEnds,
                   controller: controller,
-                  itemCount: widget.assets.length,
-                  itemBuilder: (context, index) => Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Flexible(
-                        child: Center(
-                          child: Hero(
-                            tag: 'asset_${widget.assets.keys.toList()[index]}',
-                            child: AspectRatio(
-                              aspectRatio: widget.aspectRatio,
-                              child: Card(
-                                clipBehavior: Clip.antiAlias,
-                                color: Theme.of(context).backgroundColor,
-                                elevation: 8,
-                                child: Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Positioned.fill(
-                                      child: Image.asset(
-                                        widget.assets.values.toList()[index],
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    Material(
-                                      type: MaterialType.transparency,
-                                      child: InkWell(
-                                        onTap: widget.onTap != null
-                                            ? () => widget.onTap?.call(index)
-                                            : null,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4),
-                        child: Text(widget.assets.keys.toList()[index]),
-                      ),
-                    ],
-                  ),
+                  itemCount: widget.itemCount,
+                  itemBuilder: widget.builder,
                 ),
               ),
               GalleryPageButton(

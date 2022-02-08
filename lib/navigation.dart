@@ -168,8 +168,10 @@ class _NavigationTitleState extends State<NavigationTitle> {
   }
 
   void onIndexChanged() {
-    setState(() {
-      showTitle = widget.scrollController.offset > 120;
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      setState(() {
+        showTitle = widget.scrollController.offset > 120;
+      });
     });
   }
 

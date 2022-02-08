@@ -3,13 +3,24 @@ import 'package:anchor_scroll_controller/anchor_scroll_wrapper.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
+typedef PositionedListItemBuilder = Widget Function(
+    BuildContext context, int index);
+
 class PositionedListItem {
   final String? name;
   final Widget? title;
-  final Widget child;
+  late final PositionedListItemBuilder builder;
 
   PositionedListItem({
-    required this.child,
+    required Widget child,
+    this.name,
+    this.title,
+  }) {
+    builder = (context, index) => child;
+  }
+
+  PositionedListItem.builder({
+    required this.builder,
     this.name,
     this.title,
   });
@@ -30,12 +41,14 @@ class PositionedListView extends StatelessWidget {
     return ListView.builder(
       controller: scrollController,
       itemCount: sections.length,
-      itemBuilder: (context, index) => PositionedListSection(
-        title: sections[index].title,
-        index: index,
-        controller: scrollController,
-        child: sections[index].child,
-      ),
+      itemBuilder: (context, index) {
+        return PositionedListSection(
+          title: sections[index].title,
+          index: index,
+          controller: scrollController,
+          child: sections[index].builder(context, index),
+        );
+      },
     );
   }
 }
@@ -62,15 +75,28 @@ class PositionedListSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DefaultTextStyle(
-            style: Theme.of(context).textTheme.headline4!,
-            child: Padding(
-              padding: const EdgeInsets.all(32),
-              child: title,
-            ),
+          PositionedListHeader(
+            child: title,
           ),
           child,
         ],
+      ),
+    );
+  }
+}
+
+class PositionedListHeader extends StatelessWidget {
+  final Widget? child;
+
+  const PositionedListHeader({Key? key, required this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTextStyle(
+      style: Theme.of(context).textTheme.headline4!,
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: child,
       ),
     );
   }
