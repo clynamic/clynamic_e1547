@@ -130,32 +130,27 @@ class FeatureGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return GridView(
-            physics: const NeverScrollableScrollPhysics(),
-            primary: false,
-            shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithMinCrossAxisExtent(
-              minCrossAxisExtent: 300,
-              preferredCrossAxisExtent: 2000,
-              childAspectRatio: 1.5,
-            ),
-            children: features
-                .map(
-                  (e) => Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: FeatureCard(
-                      item: e,
-                      onTap: onTapItem != null
-                          ? () => onTapItem!(features.indexOf(e))
-                          : null,
-                    ),
-                  ),
-                )
-                .toList(),
-          );
-        },
+      child: GridView(
+        physics: const NeverScrollableScrollPhysics(),
+        primary: false,
+        shrinkWrap: true,
+        gridDelegate: const SliverGridDelegateWithMinCrossAxisExtent(
+          minCrossAxisExtent: 300,
+          childAspectRatio: 1.5,
+        ),
+        children: features
+            .map(
+              (e) => Padding(
+                padding: const EdgeInsets.all(8),
+                child: FeatureCard(
+                  item: e,
+                  onTap: onTapItem != null
+                      ? () => onTapItem!(features.indexOf(e))
+                      : null,
+                ),
+              ),
+            )
+            .toList(),
       ),
     );
   }
@@ -245,28 +240,23 @@ class FeatureCard extends StatelessWidget {
 }
 
 class SliverGridDelegateWithMinCrossAxisExtent extends SliverGridDelegate {
-  final double preferredCrossAxisExtent;
   final double minCrossAxisExtent;
   final double mainAxisSpacing;
   final double crossAxisSpacing;
   final double childAspectRatio;
 
   const SliverGridDelegateWithMinCrossAxisExtent({
-    required this.preferredCrossAxisExtent,
     required this.minCrossAxisExtent,
     this.mainAxisSpacing = 0.0,
     this.crossAxisSpacing = 0.0,
     this.childAspectRatio = 1.0,
-  })  : assert(preferredCrossAxisExtent > 0),
-        assert(minCrossAxisExtent > 0),
-        assert(preferredCrossAxisExtent >= minCrossAxisExtent),
+  })  : assert(minCrossAxisExtent > 0),
         assert(mainAxisSpacing >= 0),
         assert(crossAxisSpacing >= 0),
         assert(childAspectRatio > 0);
 
   bool _debugAssertIsValid(double crossAxisExtent) {
     assert(crossAxisExtent > 0.0);
-    assert(preferredCrossAxisExtent > 0.0);
     assert(mainAxisSpacing >= 0.0);
     assert(crossAxisSpacing >= 0.0);
     assert(childAspectRatio > 0.0);
@@ -298,8 +288,7 @@ class SliverGridDelegateWithMinCrossAxisExtent extends SliverGridDelegate {
 
   @override
   bool shouldRelayout(SliverGridDelegateWithMinCrossAxisExtent oldDelegate) {
-    return oldDelegate.preferredCrossAxisExtent != preferredCrossAxisExtent ||
-        oldDelegate.mainAxisSpacing != mainAxisSpacing ||
+    return oldDelegate.mainAxisSpacing != mainAxisSpacing ||
         oldDelegate.crossAxisSpacing != crossAxisSpacing ||
         oldDelegate.childAspectRatio != childAspectRatio;
   }
