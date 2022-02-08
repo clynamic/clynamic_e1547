@@ -37,8 +37,27 @@ class _FeatureDisplayState extends State<FeatureDisplay> {
       children: [
         Row(
           children: [
-            const PositionedListHeader(
-              child: Text('Features'),
+            PositionedListHeader(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        const TextSpan(text: 'Features'),
+                        if (selected == null)
+                          const TextSpan(
+                            text: '  (tap any)',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             const Spacer(),
             Padding(
@@ -149,12 +168,46 @@ class FeatureCard extends StatelessWidget {
   final bool expanded;
   final VoidCallback? onTap;
 
-  const FeatureCard(
-      {Key? key, required this.item, this.onTap, this.expanded = false})
-      : super(key: key);
+  const FeatureCard({
+    Key? key,
+    required this.item,
+    this.onTap,
+    this.expanded = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> subtitle() {
+      if (expanded) {
+        return [
+          const SizedBox(height: 20),
+          Flexible(
+            child: SingleChildScrollView(
+              controller: ScrollController(),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Text(
+                  item.description,
+                ),
+              ),
+            ),
+          ),
+        ];
+      } else {
+        return [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              item.subtitle,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+            ),
+          )
+        ];
+      }
+    }
+
     return Card(
       clipBehavior: Clip.antiAlias,
       color: Colors.grey[900]!,
@@ -171,26 +224,20 @@ class FeatureCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   item.icon,
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Text(
-                      item.title,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline6,
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: Text(
+                        item.title,
+                        style: Theme.of(context).textTheme.headline6,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                 ],
               ),
-              if (expanded) const SizedBox(height: 20),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  expanded ? item.description : item.subtitle,
-                  textAlign: expanded ? null : TextAlign.center,
-                ),
-              ),
+              ...subtitle(),
             ],
           ),
         ),
