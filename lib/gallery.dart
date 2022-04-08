@@ -139,9 +139,12 @@ class ScreenshotCard extends StatelessWidget {
                     clipBehavior: Clip.none,
                     children: [
                       Positioned.fill(
-                        child: Image.asset(
-                          assetPath,
-                          fit: BoxFit.cover,
+                        child: ImageRenderer(
+                          alt: name,
+                          child: Image.asset(
+                            assetPath,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       Material(

@@ -60,9 +60,12 @@ class _HomeState extends State<Home> {
                     elevation: 16,
                     child: SizedBox(
                       height: 140,
-                      child: Image.asset(
-                        appIcon,
-                        fit: BoxFit.contain,
+                      child: ImageRenderer(
+                        alt: appTitle,
+                        child: Image.asset(
+                          appIcon,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
                   ),
