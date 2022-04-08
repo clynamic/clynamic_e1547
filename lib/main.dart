@@ -93,6 +93,7 @@ class _HomeState extends State<Home> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const TextRenderer(
+                style: TextRendererStyle.header2,
                 child: Text(
                   'A sophisticated e621 experience for android and iOS\n\n',
                   style: TextStyle(
@@ -117,7 +118,10 @@ class _HomeState extends State<Home> {
         ),
         PositionedListItem(
           name: NavigationHeaders.Download.name,
-          title: const Text('Download'),
+          title: const TextRenderer(
+            style: TextRendererStyle.header3,
+            child: Text('Download'),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -139,7 +143,10 @@ class _HomeState extends State<Home> {
         ),
         PositionedListItem(
           name: NavigationHeaders.Social.name,
-          title: const Text('Social'),
+          title: const TextRenderer(
+            style: TextRendererStyle.header3,
+            child: Text('Social'),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 32,

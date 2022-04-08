@@ -1,6 +1,8 @@
 import 'package:clynamic/gallery.dart';
 import 'package:clynamic/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer_style.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 import 'scrolling.dart';
 
@@ -44,7 +46,10 @@ class _FeatureDisplayState extends State<FeatureDisplay> {
                 textBaseline: TextBaseline.ideographic,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text('Features'),
+                  const TextRenderer(
+                    style: TextRendererStyle.header3,
+                    child: Text('Features'),
+                  ),
                   AnimatedOpacity(
                     opacity: selected == null ? 1 : 0,
                     duration: const Duration(milliseconds: 200),
@@ -168,11 +173,13 @@ class FeatureCard extends StatelessWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  item.description,
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        color: dimTextColor(context, 0.8),
-                      ),
+                child: TextRenderer(
+                  child: Text(
+                    item.description,
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          color: dimTextColor(context, 0.8),
+                        ),
+                  ),
                 ),
               ),
             ),
@@ -182,13 +189,16 @@ class FeatureCard extends StatelessWidget {
         return [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text(
-              item.subtitle,
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                    color: dimTextColor(context),
-                  ),
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
+            child: TextRenderer(
+              style: TextRendererStyle.header4,
+              child: Text(
+                item.subtitle,
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      color: dimTextColor(context),
+                    ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           )
         ];
@@ -215,10 +225,13 @@ class FeatureCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 8),
-                      child: Text(
-                        item.title,
-                        style: Theme.of(context).textTheme.headline6,
-                        overflow: TextOverflow.ellipsis,
+                      child: TextRenderer(
+                        style: TextRendererStyle.header2,
+                        child: Text(
+                          item.title,
+                          style: Theme.of(context).textTheme.headline6,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                   ),

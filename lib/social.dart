@@ -1,5 +1,6 @@
 import 'package:clynamic/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:seo_renderer/seo_renderer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SocialItem {
@@ -63,8 +64,11 @@ class SocialCard extends StatelessWidget {
                     item.icon,
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        item.title,
+                      child: TextRenderer(
+                        style: TextRendererStyle.header6,
+                        child: Text(
+                          item.title,
+                        ),
                       ),
                     ),
                   ],

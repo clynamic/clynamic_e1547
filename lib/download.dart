@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seo_renderer/seo_renderer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DownloadItem {
@@ -58,9 +59,12 @@ class DownloadCard extends StatelessWidget {
                           item.icon,
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              item.title,
-                              style: Theme.of(context).textTheme.headline6!,
+                            child: TextRenderer(
+                              style: TextRendererStyle.header3,
+                              child: Text(
+                                item.title,
+                                style: Theme.of(context).textTheme.headline6!,
+                              ),
                             ),
                           ),
                         ],
