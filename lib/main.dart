@@ -42,119 +42,122 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return NavigationList(
-      title:
-          NavigationTitle(title: appTitle, scrollController: scrollController),
-      scrollController: scrollController,
-      sections: [
-        PositionedListItem(
-          name: NavigationHeaders.e1547.name,
-          title: Center(
+    return ColoredBox(
+      color: siteBackgroundColor,
+      child: NavigationList(
+        title: NavigationTitle(
+            title: appTitle, scrollController: scrollController),
+        scrollController: scrollController,
+        sections: [
+          PositionedListItem(
+            name: NavigationHeaders.e1547.name,
+            title: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Material(
+                    shape: const CircleBorder(),
+                    elevation: 16,
+                    child: SizedBox(
+                      height: 140,
+                      child: Image.asset(
+                        'assets/app-icon.png',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: TextRenderer(
+                      style: TextRendererStyle.header1,
+                      child: Text(
+                        appTitle,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline3
+                            ?.copyWith(color: Colors.white, shadows: [
+                          const Shadow(
+                            offset: Offset(0, 8),
+                            blurRadius: 6,
+                          ),
+                        ]),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Material(
-                  shape: const CircleBorder(),
-                  elevation: 16,
-                  child: SizedBox(
-                    height: 140,
-                    child: Image.asset(
-                      'assets/app-icon.png',
-                      fit: BoxFit.contain,
+                const TextRenderer(
+                  style: TextRendererStyle.header2,
+                  child: Text(
+                    appDescription,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: TextRenderer(
-                    style: TextRendererStyle.header1,
-                    child: Text(
-                      appTitle,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline3
-                          ?.copyWith(color: Colors.white, shadows: [
-                        const Shadow(
-                          offset: Offset(0, 8),
-                          blurRadius: 6,
-                        ),
-                      ]),
-                    ),
-                  ),
+                ScreenshotInlineGallery(
+                  assets: {
+                    for (final e in screenshotNames) e: '$screenshotDir$e.png'
+                  },
                 ),
               ],
             ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const TextRenderer(
-                style: TextRendererStyle.header2,
-                child: Text(
-                  appDescription,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              ScreenshotInlineGallery(
-                assets: {
-                  for (final e in screenshotNames) e: '$screenshotDir$e.png'
-                },
-              ),
-            ],
-          ),
-        ),
-        PositionedListItem.builder(
-          name: NavigationHeaders.Features.name,
-          builder: (context, index) => FeatureDisplay(
-            features: features,
-            onItemToggle: () => scrollController.scrollToIndex(index: index),
-          ),
-        ),
-        PositionedListItem(
-          name: NavigationHeaders.Download.name,
-          title: const TextRenderer(
-            style: TextRendererStyle.header3,
-            child: Text('Download'),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: TextRenderer(
-                  child: Text(
-                    'You can download the app from these sources:\n\n',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2!
-                        .copyWith(color: dimTextColor(context, 0.6)),
-                  ),
-                ),
-              ),
-              const DownloadList(downloads: downloads),
-            ],
-          ),
-        ),
-        PositionedListItem(
-          name: NavigationHeaders.Social.name,
-          title: const TextRenderer(
-            style: TextRendererStyle.header3,
-            child: Text('Social'),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 32,
-            ).copyWith(
-              bottom: 32,
-            ),
-            child: const SocialWrap(
-              socials: socials,
+          PositionedListItem.builder(
+            name: NavigationHeaders.Features.name,
+            builder: (context, index) => FeatureDisplay(
+              features: features,
+              onItemToggle: () => scrollController.scrollToIndex(index: index),
             ),
           ),
-        ),
-      ],
+          PositionedListItem(
+            name: NavigationHeaders.Download.name,
+            title: const TextRenderer(
+              style: TextRendererStyle.header3,
+              child: Text('Download'),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
+                  child: TextRenderer(
+                    child: Text(
+                      'You can download the app from these sources:\n\n',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(color: dimTextColor(context, 0.6)),
+                    ),
+                  ),
+                ),
+                const DownloadList(downloads: downloads),
+              ],
+            ),
+          ),
+          PositionedListItem(
+            name: NavigationHeaders.Social.name,
+            title: const TextRenderer(
+              style: TextRendererStyle.header3,
+              child: Text('Social'),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 32,
+              ).copyWith(
+                bottom: 32,
+              ),
+              child: const SocialWrap(
+                socials: socials,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
