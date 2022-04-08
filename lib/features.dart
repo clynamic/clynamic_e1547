@@ -128,31 +128,33 @@ class FeatureGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
-      child: GridView(
-        physics: const NeverScrollableScrollPhysics(),
-        primary: false,
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithMinCrossAxisExtent(
-          minCrossAxisExtent: 300,
-          childAspectRatio: 1.5,
-        ),
-        children: features
-            .map(
-              (e) => Padding(
-                padding: const EdgeInsets.all(8),
-                child: FeatureCard(
-                  item: e,
-                  onTap: onTapItem != null
-                      ? () => onTapItem!(features.indexOf(e))
-                      : null,
+    return LayoutBuilder(builder: (context, constraints) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        child: GridView(
+          physics: const NeverScrollableScrollPhysics(),
+          primary: false,
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithMinCrossAxisExtent(
+            minCrossAxisExtent: (constraints.maxWidth / 4).clamp(200, 400),
+            childAspectRatio: 1.5,
+          ),
+          children: features
+              .map(
+                (e) => Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: FeatureCard(
+                    item: e,
+                    onTap: onTapItem != null
+                        ? () => onTapItem!(features.indexOf(e))
+                        : null,
+                  ),
                 ),
-              ),
-            )
-            .toList(),
-      ),
-    );
+              )
+              .toList(),
+        ),
+      );
+    });
   }
 }
 
