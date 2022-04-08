@@ -9,6 +9,8 @@ const String appTitle = 'e1547';
 const String appDescription =
     'A sophisticated e621 experience for android and iOS\n\n';
 
+const String appIcon = 'assets/app-icon.png';
+
 const String screenshotDir = 'assets/screenshots/';
 
 const List<String> screenshotNames = [

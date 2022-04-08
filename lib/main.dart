@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
                     child: SizedBox(
                       height: 140,
                       child: Image.asset(
-                        'assets/app-icon.png',
+                        appIcon,
                         fit: BoxFit.contain,
                       ),
                     ),
