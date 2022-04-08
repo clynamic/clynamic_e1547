@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 Color dimTextColor(BuildContext context, [double opacity = 0.5]) =>
     Theme.of(context).textTheme.bodyText2!.color!.withOpacity(opacity);
 
-const Color siteBackgroundColor = Color(0xFFFDB245);
+const Color siteBackgroundColor = Color(0xfffdb245);
 
 final ThemeData appTheme = ThemeData.from(
   colorScheme: ColorScheme.fromSwatch(
@@ -31,6 +31,13 @@ final ThemeData appTheme = ThemeData.from(
   ),
 ).copyWith(
   applyElevationOverlayColor: false,
+  pageTransitionsTheme: const PageTransitionsTheme(
+    builders: {
+      TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+      TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+      TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
+    },
+  ),
 );
 
 class DesktopScrollBehaviour extends ScrollBehavior {
