@@ -207,7 +207,6 @@ class FeatureCard extends StatelessWidget {
 
     return Card(
       clipBehavior: Clip.antiAlias,
-      color: Colors.grey[900]!,
       child: InkWell(
         onTap: onTap,
         child: Padding(

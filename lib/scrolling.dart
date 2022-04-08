@@ -165,7 +165,7 @@ class ExpandableCardInset extends StatelessWidget {
         child: Container(
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            color: insideColor ?? Colors.grey[900]!,
+            color: insideColor ?? Theme.of(context).cardColor,
             borderRadius: borderRadius,
           ),
           child: Expandable(

@@ -1,6 +1,7 @@
 import 'package:anchor_scroll_controller/anchor_scroll_controller.dart';
 import 'package:backdrop/backdrop.dart';
 import 'package:clynamic/scrolling.dart';
+import 'package:clynamic/theme.dart';
 import 'package:flutter/material.dart';
 
 class NavigationList extends StatelessWidget {
@@ -20,7 +21,7 @@ class NavigationList extends StatelessWidget {
     return PrimaryScrollController(
       controller: scrollController,
       child: Material(
-        color: Theme.of(context).cardColor,
+        color: siteBackgroundColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -36,6 +37,7 @@ class NavigationList extends StatelessWidget {
                     stickyFrontLayer: true,
                     appBar: BackdropAppBar(
                       title: title,
+                      backgroundColor: siteBackgroundColor,
                       automaticallyImplyLeading: false,
                       actions: [
                         Tooltip(
@@ -47,6 +49,7 @@ class NavigationList extends StatelessWidget {
                     ),
                     frontLayerElevation: 4,
                     frontLayerScrim: Colors.black54,
+                    backLayerBackgroundColor: siteBackgroundColor,
                     backLayer: NavigationBackLayer(
                       sections: sections,
                       scrollController: scrollController,

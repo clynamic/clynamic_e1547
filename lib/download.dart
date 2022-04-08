@@ -48,7 +48,6 @@ class DownloadCard extends StatelessWidget {
                 constraints: const BoxConstraints(maxWidth: 600),
                 child: Card(
                   clipBehavior: Clip.antiAlias,
-                  color: Colors.grey[900]!,
                   child: InkWell(
                     onTap: () => launch(item.url),
                     child: Padding(
