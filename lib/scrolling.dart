@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:anchor_scroll_controller/anchor_scroll_controller.dart';
 import 'package:anchor_scroll_controller/anchor_scroll_wrapper.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flutter/rendering.dart';
 
 typedef PositionedListItemBuilder = Widget Function(
     BuildContext context, int index);
@@ -176,5 +180,85 @@ class ExpandableCardInset extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class Grid extends StatelessWidget {
+  final List<Widget> children;
+
+  const Grid({Key? key, required this.children}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        child: GridView(
+          physics: const NeverScrollableScrollPhysics(),
+          primary: false,
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithMinCrossAxisExtent(
+            minCrossAxisExtent: (constraints.maxWidth / 4).clamp(200, 400),
+            childAspectRatio: 1.5,
+          ),
+          children: children,
+        ),
+      ),
+    );
+  }
+}
+
+class SliverGridDelegateWithMinCrossAxisExtent extends SliverGridDelegate {
+  final double minCrossAxisExtent;
+  final double mainAxisSpacing;
+  final double crossAxisSpacing;
+  final double childAspectRatio;
+
+  const SliverGridDelegateWithMinCrossAxisExtent({
+    required this.minCrossAxisExtent,
+    this.mainAxisSpacing = 0.0,
+    this.crossAxisSpacing = 0.0,
+    this.childAspectRatio = 1.0,
+  })  : assert(minCrossAxisExtent > 0),
+        assert(mainAxisSpacing >= 0),
+        assert(crossAxisSpacing >= 0),
+        assert(childAspectRatio > 0);
+
+  bool _debugAssertIsValid(double crossAxisExtent) {
+    assert(crossAxisExtent > 0.0);
+    assert(mainAxisSpacing >= 0.0);
+    assert(crossAxisSpacing >= 0.0);
+    assert(childAspectRatio > 0.0);
+    return true;
+  }
+
+  @override
+  SliverGridLayout getLayout(SliverConstraints constraints) {
+    assert(_debugAssertIsValid(constraints.crossAxisExtent));
+    final int maxCrossAxisCount =
+        (constraints.crossAxisExtent / (minCrossAxisExtent + crossAxisSpacing))
+            .floor();
+    final int crossAxisCount = max(1, maxCrossAxisCount);
+    final double usableCrossAxisExtent = max(
+      0.0,
+      constraints.crossAxisExtent - crossAxisSpacing * (crossAxisCount - 1),
+    );
+    final double childCrossAxisExtent = usableCrossAxisExtent / crossAxisCount;
+    final double childMainAxisExtent = childCrossAxisExtent / childAspectRatio;
+    return SliverGridRegularTileLayout(
+      crossAxisCount: crossAxisCount,
+      mainAxisStride: childMainAxisExtent + mainAxisSpacing,
+      crossAxisStride: childCrossAxisExtent + crossAxisSpacing,
+      childMainAxisExtent: childMainAxisExtent,
+      childCrossAxisExtent: childCrossAxisExtent,
+      reverseCrossAxis: axisDirectionIsReversed(constraints.crossAxisDirection),
+    );
+  }
+
+  @override
+  bool shouldRelayout(SliverGridDelegateWithMinCrossAxisExtent oldDelegate) {
+    return oldDelegate.mainAxisSpacing != mainAxisSpacing ||
+        oldDelegate.crossAxisSpacing != crossAxisSpacing ||
+        oldDelegate.childAspectRatio != childAspectRatio;
   }
 }

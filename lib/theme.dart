@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+Color dimTextColor(BuildContext context, [double opacity = 0.5]) =>
+    Theme.of(context).textTheme.bodyText2!.color!.withOpacity(opacity);
+
 Color? naturalColorLerp(Color a, Color b, double t) {
   return HSVColor.lerp(HSVColor.fromColor(a), HSVColor.fromColor(b), t)
       ?.toColor();
