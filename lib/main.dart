@@ -1,9 +1,8 @@
 import 'package:anchor_scroll_controller/anchor_scroll_controller.dart';
 import 'package:clynamic/scrolling.dart';
-import 'package:clynamic/seo/seo.dart';
 import 'package:clynamic/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:seo_renderer/helpers/utils.dart';
+import 'package:seo_renderer/seo_renderer.dart';
 
 import 'features.dart';
 import 'gallery.dart';
@@ -21,12 +20,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'clynamic - $appTitle',
-      theme: appTheme,
-      home: const Home(),
-      navigatorObservers: [routeObserver],
+    return RobotDetector(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'clynamic - $appTitle',
+        theme: appTheme,
+        home: const Home(),
+        navigatorObservers: [seoRouteObserver],
+      ),
     );
   }
 }
@@ -67,9 +68,9 @@ class _HomeState extends State<Home> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16),
-                  child: HtmlText(
-                    type: HtmlTextType.header1,
-                    text: Text(
+                  child: TextRenderer(
+                    style: TextRendererStyle.header1,
+                    child: Text(
                       appTitle,
                       style: Theme.of(context)
                           .textTheme
@@ -89,8 +90,8 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const HtmlText(
-                text: Text(
+              const TextRenderer(
+                child: Text(
                   'A sophisticated e621 experience for android and iOS\n\n',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -190,7 +191,7 @@ List<FeatureItem> features = [
         '• Multi-download posts by long clicking them in the grid\n\n'
         '• Follow artists, tag searches and pools\n\n'
         '• Keep track of how many new posts for your follows are available\n\n'
-        '• Share links or open posts in your browser',
+        '• Share links or open posts in your browser\n\n',
   ),
   FeatureItem(
       title: 'Watch',
