@@ -63,8 +63,9 @@ class SocialCard extends StatelessWidget {
                     item.icon,
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: TextRenderer(
-                        style: TextRendererStyle.header6,
+                      child: LinkRenderer(
+                        text: item.title,
+                        href: item.url,
                         child: Text(
                           item.title,
                         ),

@@ -58,8 +58,9 @@ class DownloadCard extends StatelessWidget {
                           item.icon,
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: TextRenderer(
-                              style: TextRendererStyle.header3,
+                            child: LinkRenderer(
+                              text: item.title,
+                              href: item.url,
                               child: Text(
                                 item.title,
                                 style: Theme.of(context).textTheme.headline6!,
