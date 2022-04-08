@@ -86,6 +86,8 @@ const List<FeatureItem> features = [
   ),
 ];
 
+const String downloadInfo = 'You can download the app from these sources:\n\n';
+
 const List<DownloadItem> downloads = [
   DownloadItem(
     title: 'Playstore',

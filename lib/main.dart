@@ -130,7 +130,7 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: TextRenderer(
                     child: Text(
-                      'You can download the app from these sources:\n\n',
+                      downloadInfo,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
