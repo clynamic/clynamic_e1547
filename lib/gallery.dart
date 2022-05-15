@@ -274,7 +274,7 @@ class _GalleryPageButtonState extends State<GalleryPageButton> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.controller.hasClients &&
           widget.controller.position.hasContentDimensions) {
         setState(() {});
