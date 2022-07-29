@@ -1,7 +1,8 @@
-import 'package:clynamic/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:seo_renderer/seo_renderer.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'theme.dart';
 
 class SocialItem {
   final String title;
@@ -45,7 +46,7 @@ class SocialCard extends StatelessWidget {
       child: Card(
         clipBehavior: Clip.antiAlias,
         child: InkWell(
-          onTap: () => launch(item.url),
+          onTap: () => launchUrl(Uri.parse(item.url)),
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: DefaultTextStyle(

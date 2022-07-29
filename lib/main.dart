@@ -1,17 +1,21 @@
 import 'package:anchor_scroll_controller/anchor_scroll_controller.dart';
-import 'package:clynamic/download.dart';
-import 'package:clynamic/info.dart';
-import 'package:clynamic/scrolling.dart';
-import 'package:clynamic/social.dart';
-import 'package:clynamic/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:seo_renderer/seo_renderer.dart';
+import 'package:url_strategy/url_strategy.dart';
 
+import 'download.dart';
 import 'features.dart';
 import 'gallery.dart';
+import 'info.dart';
 import 'navigation.dart';
+import 'scrolling.dart';
+import 'social.dart';
+import 'theme.dart';
 
-void main() => runApp(const App());
+void main() {
+  setPathUrlStrategy();
+  runApp(const App());
+}
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -91,7 +95,6 @@ class _HomeState extends State<Home> {
               ),
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const TextRenderer(
                   style: TextRendererStyle.header2,

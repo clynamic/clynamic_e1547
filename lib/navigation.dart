@@ -1,7 +1,8 @@
 import 'package:anchor_scroll_controller/anchor_scroll_controller.dart';
 import 'package:backdrop/backdrop.dart';
-import 'package:clynamic/scrolling.dart';
 import 'package:flutter/material.dart';
+
+import 'scrolling.dart';
 
 class NavigationList extends StatelessWidget {
   final AnchorScrollController scrollController;
@@ -151,7 +152,7 @@ class NavigationTitle extends StatefulWidget {
       : super(key: key);
 
   @override
-  _NavigationTitleState createState() => _NavigationTitleState();
+  State<NavigationTitle> createState() => _NavigationTitleState();
 }
 
 class _NavigationTitleState extends State<NavigationTitle> {

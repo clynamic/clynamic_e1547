@@ -5,12 +5,14 @@ import 'package:url_launcher/url_launcher.dart';
 class DownloadItem {
   final String title;
   final String url;
+  final String? infoUrl;
   final Widget icon;
 
   const DownloadItem({
     required this.title,
     required this.url,
     required this.icon,
+    this.infoUrl,
   });
 }
 
@@ -49,25 +51,54 @@ class DownloadCard extends StatelessWidget {
                 child: Card(
                   clipBehavior: Clip.antiAlias,
                   child: InkWell(
-                    onTap: () => launch(item.url),
+                    onTap: () => launchUrl(Uri.parse(item.url)),
                     child: Padding(
                       padding: const EdgeInsets.all(32),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          item.icon,
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: LinkRenderer(
-                              text: item.title,
-                              href: item.url,
-                              child: Text(
-                                item.title,
-                                style: Theme.of(context).textTheme.headline6!,
+                      child: IntrinsicHeight(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              width: 40,
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  item.icon,
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16),
+                                    child: LinkRenderer(
+                                      text: item.title,
+                                      href: item.url,
+                                      child: Text(
+                                        item.title,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6!,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                        ],
+                            if (item.infoUrl != null) ...[
+                              const VerticalDivider(),
+                              IconButton(
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(),
+                                onPressed: () =>
+                                    launchUrl(Uri.parse(item.infoUrl!)),
+                                icon: const Icon(Icons.question_mark),
+                                iconSize: Theme.of(context).iconTheme.size,
+                              ),
+                            ] else
+                              const SizedBox(
+                                width: 40,
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -1,9 +1,9 @@
-import 'package:clynamic/scrolling.dart';
-import 'package:clynamic/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:seo_renderer/seo_renderer.dart';
 
 import 'navigation.dart';
+import 'scrolling.dart';
+import 'theme.dart';
 
 class ScreenshotInlineGallery extends StatelessWidget {
   final Map<String, String> assets;
@@ -194,7 +194,7 @@ class GalleryPageView extends StatefulWidget {
   }
 
   @override
-  _GalleryPageViewState createState() => _GalleryPageViewState();
+  State<GalleryPageView> createState() => _GalleryPageViewState();
 }
 
 class _GalleryPageViewState extends State<GalleryPageView> {
@@ -265,7 +265,7 @@ class GalleryPageButton extends StatefulWidget {
       : super(key: key);
 
   @override
-  _GalleryPageButtonState createState() => _GalleryPageButtonState();
+  State<GalleryPageButton> createState() => _GalleryPageButtonState();
 }
 
 class _GalleryPageButtonState extends State<GalleryPageButton> {

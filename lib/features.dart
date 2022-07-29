@@ -1,10 +1,10 @@
-import 'package:clynamic/gallery.dart';
-import 'package:clynamic/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:seo_renderer/renderers/text_renderer/text_renderer_style.dart';
 import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
+import 'gallery.dart';
 import 'scrolling.dart';
+import 'theme.dart';
 
 class FeatureItem {
   final String title;
@@ -28,7 +28,7 @@ class FeatureDisplay extends StatefulWidget {
       : super(key: key);
 
   @override
-  _FeatureDisplayState createState() => _FeatureDisplayState();
+  State<FeatureDisplay> createState() => _FeatureDisplayState();
 }
 
 class _FeatureDisplayState extends State<FeatureDisplay> {
@@ -213,6 +213,7 @@ class FeatureCard extends StatelessWidget {
           padding:
               expanded ? const EdgeInsets.all(32) : const EdgeInsets.all(8),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(

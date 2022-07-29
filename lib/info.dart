@@ -1,17 +1,18 @@
-import 'package:clynamic/download.dart';
-import 'package:clynamic/features.dart';
-import 'package:clynamic/social.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'download.dart';
+import 'features.dart';
+import 'social.dart';
 
 const String siteName = 'clynamic';
 const String appTitle = 'e1547';
 const String appDescription =
     'A sophisticated e621 experience for android and iOS\n\n';
 
-const String appIcon = 'assets/app-icon.png';
+const String appIcon = 'app-icon.png';
 
-const String screenshotDir = 'assets/screenshots/';
+const String screenshotDir = 'screenshots/';
 
 const List<String> screenshotNames = [
   'search',
@@ -90,9 +91,15 @@ const String downloadInfo = 'You can download the app from these sources:\n\n';
 
 const List<DownloadItem> downloads = [
   DownloadItem(
-    title: 'Playstore',
+    title: 'Google Play',
     url: 'https://play.google.com/store/apps/details?id=net.e1547',
     icon: FaIcon(FontAwesomeIcons.googlePlay),
+  ),
+  DownloadItem(
+    title: 'AltStore',
+    url: 'https://e1547.clynamic.net/assets/altstore.json',
+    infoUrl: 'https://altstore.io/',
+    icon: FaIcon(FontAwesomeIcons.appStore),
   ),
   DownloadItem(
     title: 'GitHub',

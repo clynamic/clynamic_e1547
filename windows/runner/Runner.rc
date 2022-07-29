@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "net.clynamic" "\0"
-            VALUE "FileDescription", "clynamic website" "\0"
+            VALUE "CompanyName", "com.example" "\0"
+            VALUE "FileDescription", "e1547_clynamic" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "clynamic" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 net.clynamic. All rights reserved." "\0"
-            VALUE "OriginalFilename", "clynamic.exe" "\0"
-            VALUE "ProductName", "clynamic" "\0"
+            VALUE "InternalName", "e1547_clynamic" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
+            VALUE "OriginalFilename", "e1547_clynamic.exe" "\0"
+            VALUE "ProductName", "e1547_clynamic" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
