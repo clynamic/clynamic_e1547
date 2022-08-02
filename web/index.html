@@ -168,5 +168,17 @@
         loadMainDartJs();
       }
     </script>
+
+    <script>
+      const wait_until = setInterval(() => {
+        var elt = document.querySelector('flt-glass-pane');
+        if (elt) {
+          clearInterval(wait_until);
+            var style = document.createElement('style');
+            style.innerHTML = 'flt-scene-host * p, flt-scene-host * canvas { image-rendering: pixelated; }';
+            elt.shadowRoot.appendChild(style);
+        }
+      }, 500);
+    </script>
   </body>
 </html>
