@@ -9,13 +9,13 @@ environment:
 
 dependencies:
   url_strategy: ^0.2.0
-  font_awesome_flutter: ^10.1.0
+  font_awesome_flutter: ^10.2.1
   url_launcher: ^6.0.20
   expandable: ^5.0.1
   seo_renderer: ^0.6.0
   font_awesome: ^5.10.1
   anchor_scroll_controller: ^0.4.1
-  backdrop: ^0.8.0
+  backdrop: ^0.8.1
   flutter:
     sdk: flutter
 
