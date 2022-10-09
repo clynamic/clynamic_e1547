@@ -30,6 +30,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  # https://api.github.com/repos/clragon/e1547/releases
   assets:
     - app-icon.png
     - screenshots/
