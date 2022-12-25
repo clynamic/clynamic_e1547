@@ -25,7 +25,7 @@ jobs:
       - name: package release
         run: |
           cd build/web
-          zip -9 -r release.zip build/web/*
+          zip -9 -r release.zip *
           mv release.zip ../../
 
       - name: upload release to assets
