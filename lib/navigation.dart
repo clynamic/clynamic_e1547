@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'scrolling.dart';
 
 class NavigationList extends StatelessWidget {
-  final AnchorScrollController scrollController;
-  final List<PositionedListItem> sections;
-  final Widget? title;
-
   const NavigationList({
-    Key? key,
+    super.key,
     required this.scrollController,
     required this.sections,
     this.title,
-  }) : super(key: key);
+  });
+
+  final AnchorScrollController scrollController;
+  final List<PositionedListItem> sections;
+  final Widget? title;
 
   @override
   Widget build(BuildContext context) {
@@ -70,14 +70,14 @@ class NavigationList extends StatelessWidget {
 }
 
 class NavigationBackLayer extends StatelessWidget {
-  final List<PositionedListItem> sections;
-  final AnchorScrollController scrollController;
-
   const NavigationBackLayer({
-    Key? key,
+    super.key,
     required this.sections,
     required this.scrollController,
-  }) : super(key: key);
+  });
+
+  final List<PositionedListItem> sections;
+  final AnchorScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,7 @@ class NavigationBackLayer extends StatelessWidget {
                 },
                 child: Text(
                   section.name!,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ),
             ),
@@ -118,7 +118,7 @@ class NavigationBackLayer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 4),
               child: Text(
                 '•',
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
             child,
@@ -144,12 +144,14 @@ class NavigationBackLayer extends StatelessWidget {
 }
 
 class NavigationTitle extends StatefulWidget {
+  const NavigationTitle({
+    super.key,
+    required this.title,
+    required this.scrollController,
+  });
+
   final String title;
   final AnchorScrollController scrollController;
-
-  const NavigationTitle(
-      {Key? key, required this.title, required this.scrollController})
-      : super(key: key);
 
   @override
   State<NavigationTitle> createState() => _NavigationTitleState();
@@ -191,7 +193,7 @@ class _NavigationTitleState extends State<NavigationTitle> {
           opacity: show ? 1 : 0,
           child: Text(
             widget.title,
-            style: Theme.of(context).textTheme.headline5,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),
       ),
@@ -200,9 +202,7 @@ class _NavigationTitleState extends State<NavigationTitle> {
 }
 
 class NavigationToggleButton extends StatelessWidget {
-  const NavigationToggleButton({
-    Key? key,
-  }) : super(key: key);
+  const NavigationToggleButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -223,10 +223,10 @@ class MaterialTransparentRoute<T> extends PageRoute<T>
     with MaterialRouteTransitionMixin<T> {
   MaterialTransparentRoute({
     required this.builder,
-    RouteSettings? settings,
+    super.settings,
     this.maintainState = true,
-    bool fullscreenDialog = false,
-  }) : super(settings: settings, fullscreenDialog: fullscreenDialog);
+    super.fullscreenDialog,
+  });
 
   final WidgetBuilder builder;
 

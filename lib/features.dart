@@ -7,25 +7,24 @@ import 'scrolling.dart';
 import 'theme.dart';
 
 class FeatureItem {
-  final String title;
-  final String subtitle;
-  final Widget icon;
-  final String description;
-
   const FeatureItem({
     required this.title,
     required this.subtitle,
     required this.icon,
     required this.description,
   });
+
+  final String title;
+  final String subtitle;
+  final Widget icon;
+  final String description;
 }
 
 class FeatureDisplay extends StatefulWidget {
+  const FeatureDisplay({super.key, required this.features, this.onItemToggle});
+
   final List<FeatureItem> features;
   final VoidCallback? onItemToggle;
-
-  const FeatureDisplay({Key? key, required this.features, this.onItemToggle})
-      : super(key: key);
 
   @override
   State<FeatureDisplay> createState() => _FeatureDisplayState();
@@ -123,11 +122,10 @@ class _FeatureDisplayState extends State<FeatureDisplay> {
 }
 
 class FeatureGrid extends StatelessWidget {
+  const FeatureGrid({super.key, required this.features, this.onTapItem});
+
   final List<FeatureItem> features;
   final void Function(int index)? onTapItem;
-
-  const FeatureGrid({Key? key, required this.features, this.onTapItem})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -150,16 +148,16 @@ class FeatureGrid extends StatelessWidget {
 }
 
 class FeatureCard extends StatelessWidget {
-  final FeatureItem item;
-  final bool expanded;
-  final VoidCallback? onTap;
-
   const FeatureCard({
-    Key? key,
+    super.key,
     required this.item,
     this.onTap,
     this.expanded = false,
-  }) : super(key: key);
+  });
+
+  final FeatureItem item;
+  final bool expanded;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +174,7 @@ class FeatureCard extends StatelessWidget {
                 child: TextRenderer(
                   child: Text(
                     item.description,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: dimTextColor(context, 0.8),
                         ),
                   ),
@@ -193,7 +191,7 @@ class FeatureCard extends StatelessWidget {
               style: TextRendererStyle.header4,
               child: Text(
                 item.subtitle,
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       color: dimTextColor(context),
                     ),
                 textAlign: TextAlign.center,
@@ -229,7 +227,7 @@ class FeatureCard extends StatelessWidget {
                         style: TextRendererStyle.header2,
                         child: Text(
                           item.title,
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.titleLarge,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

@@ -6,10 +6,9 @@ import 'scrolling.dart';
 import 'theme.dart';
 
 class ScreenshotInlineGallery extends StatelessWidget {
-  final Map<String, String> assets;
+  const ScreenshotInlineGallery({super.key, required this.assets});
 
-  const ScreenshotInlineGallery({Key? key, required this.assets})
-      : super(key: key);
+  final Map<String, String> assets;
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +56,14 @@ void showScreenshotFullscreenGallery(
 }
 
 class ScreenshotFullscreenGallery extends StatelessWidget {
+  const ScreenshotFullscreenGallery({
+    super.key,
+    required this.assets,
+    this.initialIndex,
+  });
+
   final Map<String, String> assets;
   final int? initialIndex;
-
-  const ScreenshotFullscreenGallery(
-      {Key? key, required this.assets, this.initialIndex})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -107,18 +108,17 @@ class ScreenshotFullscreenGallery extends StatelessWidget {
 }
 
 class ScreenshotCard extends StatelessWidget {
-  final String assetPath;
-  final String name;
-  final VoidCallback? onTap;
-  final double aspectRatio;
-
   const ScreenshotCard({
-    Key? key,
+    super.key,
     required this.assetPath,
     required this.name,
     this.aspectRatio = 1,
     this.onTap,
-  }) : super(key: key);
+  });
+  final String assetPath;
+  final String name;
+  final VoidCallback? onTap;
+  final double aspectRatio;
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +133,7 @@ class ScreenshotCard extends StatelessWidget {
                 aspectRatio: aspectRatio,
                 child: Card(
                   clipBehavior: Clip.antiAlias,
-                  color: Theme.of(context).backgroundColor,
+                  color: Theme.of(context).colorScheme.background,
                   elevation: 8,
                   child: Stack(
                     clipBehavior: Clip.none,
@@ -173,25 +173,23 @@ class ScreenshotCard extends StatelessWidget {
 }
 
 class GalleryPageView extends StatefulWidget {
-  final bool padEnds;
-  final double? tileWidth;
-  final double? viewportFraction;
-  final int? itemCount;
-  final IndexedWidgetBuilder builder;
-  final int initialIndex;
-
-  GalleryPageView({
-    Key? key,
+  const GalleryPageView({
+    super.key,
     required this.builder,
     this.itemCount,
     this.padEnds = true,
     this.tileWidth,
     this.viewportFraction,
     this.initialIndex = 0,
-  }) : super(key: key) {
-    assert(tileWidth == null || viewportFraction == null,
-        'Cannot specify tileWidth and viewportFraction');
-  }
+  }) : assert(tileWidth == null || viewportFraction == null,
+            'Cannot specify tileWidth and viewportFraction');
+
+  final bool padEnds;
+  final double? tileWidth;
+  final double? viewportFraction;
+  final int? itemCount;
+  final IndexedWidgetBuilder builder;
+  final int initialIndex;
 
   @override
   State<GalleryPageView> createState() => _GalleryPageViewState();
@@ -257,12 +255,14 @@ enum GalleryButtonDirection {
 }
 
 class GalleryPageButton extends StatefulWidget {
+  const GalleryPageButton({
+    super.key,
+    required this.direction,
+    required this.controller,
+  });
+
   final GalleryButtonDirection direction;
   final PageController controller;
-
-  const GalleryPageButton(
-      {Key? key, required this.direction, required this.controller})
-      : super(key: key);
 
   @override
   State<GalleryPageButton> createState() => _GalleryPageButtonState();

@@ -5,21 +5,21 @@ import 'package:url_launcher/url_launcher.dart';
 import 'theme.dart';
 
 class SocialItem {
-  final String title;
-  final String url;
-  final Widget icon;
-
   const SocialItem({
     required this.title,
     required this.url,
     required this.icon,
   });
+
+  final String title;
+  final String url;
+  final Widget icon;
 }
 
 class SocialWrap extends StatelessWidget {
-  final List<SocialItem> socials;
+  const SocialWrap({super.key, required this.socials});
 
-  const SocialWrap({Key? key, required this.socials}) : super(key: key);
+  final List<SocialItem> socials;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,9 @@ class SocialWrap extends StatelessWidget {
 }
 
 class SocialCard extends StatelessWidget {
-  final SocialItem item;
+  const SocialCard({super.key, required this.item});
 
-  const SocialCard({Key? key, required this.item}) : super(key: key);
+  final SocialItem item;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class SocialCard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: DefaultTextStyle(
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: dimTextColor(context),
                     fontSize: 18,
                   ),

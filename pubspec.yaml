@@ -5,17 +5,18 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.15.1 <3.0.0"
+  sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
   url_strategy: ^0.2.0
-  font_awesome_flutter: ^10.2.1
-  url_launcher: ^6.0.20
+  font_awesome_flutter: ^10.4.0
+  url_launcher: ^6.1.10
   expandable: ^5.0.1
   seo_renderer: ^0.6.0
   font_awesome: ^5.10.1
-  anchor_scroll_controller: ^0.4.1
+  anchor_scroll_controller: ^0.4.3
   backdrop: ^0.8.1
+
   flutter:
     sdk: flutter
 
@@ -25,14 +26,13 @@ dev_dependencies:
   flutter_lints: ^2.0.1
 
   # flutter pub run flutter_native_splash:create
-  flutter_native_splash: ^2.1.3+1
+  flutter_native_splash: ^2.2.19
 
 flutter:
   uses-material-design: true
-
-  # https://api.github.com/repos/clragon/e1547/releases
   assets:
     - app-icon.png
+    - app-banner.png
     - screenshots/
     - altstore.json
 

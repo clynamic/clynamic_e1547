@@ -18,7 +18,7 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class App extends StatelessWidget {
 }
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
                         appTitle,
                         style: Theme.of(context)
                             .textTheme
-                            .headline3
+                            .displaySmall
                             ?.copyWith(color: Colors.white, shadows: [
                           const Shadow(
                             offset: Offset(0, 8),
@@ -136,7 +136,7 @@ class _HomeState extends State<Home> {
                       downloadInfo,
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText2!
+                          .bodyMedium!
                           .copyWith(color: dimTextColor(context, 0.6)),
                     ),
                   ),

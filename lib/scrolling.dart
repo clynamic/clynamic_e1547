@@ -10,10 +10,6 @@ typedef PositionedListItemBuilder = Widget Function(
     BuildContext context, int index);
 
 class PositionedListItem {
-  final String? name;
-  final Widget? title;
-  late final PositionedListItemBuilder builder;
-
   PositionedListItem({
     required Widget child,
     this.name,
@@ -27,17 +23,21 @@ class PositionedListItem {
     this.name,
     this.title,
   });
+
+  final String? name;
+  final Widget? title;
+  late final PositionedListItemBuilder builder;
 }
 
 class PositionedListView extends StatelessWidget {
-  final AnchorScrollController scrollController;
-  final List<PositionedListItem> sections;
-
   const PositionedListView({
-    Key? key,
+    super.key,
     required this.scrollController,
     required this.sections,
-  }) : super(key: key);
+  });
+
+  final AnchorScrollController scrollController;
+  final List<PositionedListItem> sections;
 
   @override
   Widget build(BuildContext context) {
@@ -57,18 +57,18 @@ class PositionedListView extends StatelessWidget {
 }
 
 class PositionedListSection extends StatelessWidget {
-  final int index;
-  final Widget? title;
-  final Widget child;
-  final AnchorScrollController controller;
-
   const PositionedListSection({
-    Key? key,
+    super.key,
     required this.title,
     required this.index,
     required this.controller,
     required this.child,
-  }) : super(key: key);
+  });
+
+  final int index;
+  final Widget? title;
+  final Widget child;
+  final AnchorScrollController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -89,14 +89,14 @@ class PositionedListSection extends StatelessWidget {
 }
 
 class PositionedListHeader extends StatelessWidget {
-  final Widget? child;
+  const PositionedListHeader({super.key, required this.child});
 
-  const PositionedListHeader({Key? key, required this.child}) : super(key: key);
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-      style: Theme.of(context).textTheme.headline4!,
+      style: Theme.of(context).textTheme.headlineMedium!,
       child: Padding(
         padding: const EdgeInsets.all(32),
         child: child,
@@ -106,22 +106,22 @@ class PositionedListHeader extends StatelessWidget {
 }
 
 class ExpandableCardInset extends StatelessWidget {
-  final Widget? title;
-  final Widget child;
-  final bool allowCollapse;
-  final Color? insideColor;
-  final Color? outsideColor;
-  final BorderRadius? borderRadius;
-
   const ExpandableCardInset({
-    Key? key,
+    super.key,
     required this.child,
     this.title,
     this.allowCollapse = false,
     this.insideColor,
     this.outsideColor,
     this.borderRadius,
-  }) : super(key: key);
+  });
+
+  final Widget? title;
+  final Widget child;
+  final bool allowCollapse;
+  final Color? insideColor;
+  final Color? outsideColor;
+  final BorderRadius? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +131,7 @@ class ExpandableCardInset extends StatelessWidget {
     Widget header() {
       return Material(
         clipBehavior: Clip.antiAlias,
-        color: outsideColor ?? Theme.of(context).backgroundColor,
+        color: outsideColor ?? Theme.of(context).colorScheme.background,
         borderRadius: borderRadius,
         elevation: 4,
         child: Opacity(
@@ -183,9 +183,9 @@ class ExpandableCardInset extends StatelessWidget {
 }
 
 class Grid extends StatelessWidget {
-  final List<Widget> children;
+  const Grid({super.key, required this.children});
 
-  const Grid({Key? key, required this.children}) : super(key: key);
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
@@ -208,11 +208,6 @@ class Grid extends StatelessWidget {
 }
 
 class SliverGridDelegateWithMinCrossAxisExtent extends SliverGridDelegate {
-  final double minCrossAxisExtent;
-  final double mainAxisSpacing;
-  final double crossAxisSpacing;
-  final double childAspectRatio;
-
   const SliverGridDelegateWithMinCrossAxisExtent({
     required this.minCrossAxisExtent,
     this.mainAxisSpacing = 0.0,
@@ -222,6 +217,11 @@ class SliverGridDelegateWithMinCrossAxisExtent extends SliverGridDelegate {
         assert(mainAxisSpacing >= 0),
         assert(crossAxisSpacing >= 0),
         assert(childAspectRatio > 0);
+
+  final double minCrossAxisExtent;
+  final double mainAxisSpacing;
+  final double crossAxisSpacing;
+  final double childAspectRatio;
 
   bool _debugAssertIsValid(double crossAxisExtent) {
     assert(crossAxisExtent > 0.0);
@@ -239,7 +239,7 @@ class SliverGridDelegateWithMinCrossAxisExtent extends SliverGridDelegate {
             .floor();
     final int crossAxisCount = max(1, maxCrossAxisCount);
     final double usableCrossAxisExtent = max(
-      0.0,
+      0,
       constraints.crossAxisExtent - crossAxisSpacing * (crossAxisCount - 1),
     );
     final double childCrossAxisExtent = usableCrossAxisExtent / crossAxisCount;

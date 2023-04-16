@@ -3,23 +3,23 @@ import 'package:seo_renderer/seo_renderer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DownloadItem {
-  final String title;
-  final String url;
-  final String? infoUrl;
-  final Widget icon;
-
   const DownloadItem({
     required this.title,
     required this.url,
     required this.icon,
     this.infoUrl,
   });
+
+  final String title;
+  final String url;
+  final String? infoUrl;
+  final Widget icon;
 }
 
 class DownloadList extends StatelessWidget {
-  final List<DownloadItem> downloads;
+  const DownloadList({super.key, required this.downloads});
 
-  const DownloadList({Key? key, required this.downloads}) : super(key: key);
+  final List<DownloadItem> downloads;
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +33,14 @@ class DownloadList extends StatelessWidget {
 }
 
 class DownloadCard extends StatelessWidget {
-  final DownloadItem item;
+  const DownloadCard({super.key, required this.item});
 
-  const DownloadCard({Key? key, required this.item}) : super(key: key);
+  final DownloadItem item;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -76,7 +76,7 @@ class DownloadCard extends StatelessWidget {
                                         item.title,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6!,
+                                            .titleLarge!,
                                       ),
                                     ),
                                   ),

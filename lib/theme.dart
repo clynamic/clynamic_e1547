@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 Color dimTextColor(BuildContext context, [double opacity = 0.5]) =>
-    Theme.of(context).textTheme.bodyText2!.color!.withOpacity(opacity);
+    Theme.of(context).textTheme.bodyMedium!.color!.withOpacity(opacity);
 
 const Color siteBackgroundColor = Color(0xfffdb245);
 
