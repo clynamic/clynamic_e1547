@@ -15,13 +15,14 @@ const String appIcon = 'app-icon.png';
 const String screenshotDir = 'screenshots/';
 
 const List<String> screenshotNames = [
-  'search',
+  'home',
   'detail',
   'drawer',
-  'blacklist',
+  'denylist',
+  'timeline',
   'settings',
+  'subscriptions',
   'forum',
-  'following',
 ];
 
 const List<FeatureItem> features = [
