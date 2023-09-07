@@ -1,15 +1,18 @@
-name: build
+name: release
+
+permissions:
+  contents: write
 
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
 
 jobs:
-  build:
+  build_and_release:
     runs-on: ubuntu-latest
+
     steps:
-      - name: setup actions
-        uses: actions/checkout@v3
+      - name: checkout code
+        uses: actions/checkout@v4
 
       - name: setup flutter
         uses: subosito/flutter-action@v2
@@ -21,16 +24,24 @@ jobs:
 
       - name: build release
         run: flutter build web
-      
+
       - name: package release
         run: |
           cd build/web
           zip -9 -r release.zip *
           mv release.zip ../../
 
-      - name: upload release to assets
+      - name: upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: release
+          path: release.zip
+
+      - name: create release
+        id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          files: release.zip
+          tag_name: release-${{ github.run_id }}
+          files: ./release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
