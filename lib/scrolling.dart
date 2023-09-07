@@ -207,6 +207,8 @@ class Grid extends StatelessWidget {
   }
 }
 
+// ignore_for_file: prefer_asserts_with_message
+
 class SliverGridDelegateWithMinCrossAxisExtent extends SliverGridDelegate {
   const SliverGridDelegateWithMinCrossAxisExtent({
     required this.minCrossAxisExtent,

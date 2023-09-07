@@ -1,11 +1,12 @@
 name: e1547_clynamic
 description: e1547 landing page
 
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.13.0 <4.0.0"
 
 dependencies:
   url_strategy: ^0.2.0

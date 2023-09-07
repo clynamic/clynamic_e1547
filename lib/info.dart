@@ -95,17 +95,26 @@ const List<DownloadItem> downloads = [
     title: 'Google Play',
     url: 'https://play.google.com/store/apps/details?id=net.e1547',
     icon: FaIcon(FontAwesomeIcons.googlePlay),
+    platforms: [TargetPlatform.android],
+  ),
+  DownloadItem(
+    title: 'Fdroid',
+    url: 'https://f-droid.org/de/packages/net.e1547/',
+    icon: FaIcon(FontAwesomeIcons.android),
+    platforms: [TargetPlatform.android],
   ),
   DownloadItem(
     title: 'AltStore',
     url: 'https://e1547.clynamic.net/assets/altstore.json',
     infoUrl: 'https://altstore.io/',
     icon: FaIcon(FontAwesomeIcons.appStore),
+    platforms: [TargetPlatform.iOS],
   ),
   DownloadItem(
     title: 'GitHub',
     url: 'https://github.com/clragon/e1547/#readme',
     icon: FaIcon(FontAwesomeIcons.github),
+    platforms: [TargetPlatform.android, TargetPlatform.iOS],
   ),
 ];
 

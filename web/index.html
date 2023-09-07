@@ -1,108 +1,121 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <base href="$FLUTTER_BASE_HREF" />
+<!DOCTYPE html><html lang="en"><head>
+    <base href="$FLUTTER_BASE_HREF">
 
-    <meta charset="UTF-8" />
-    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
-    <meta name="description" content="A e621 and e926 mobile app" />
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="A e621 and e926 mobile app">
 
     <meta property="og:title" content="e1547">
     <meta property="og:description" content="A e621 and e926 mobile app">
     <meta property="og:image" content="https://e1547.clynamic.net/assets/app-banner.png">
     <meta property="og:url" content="https://e1547.clynamic.net/">
 
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="e1547" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="e1547">
 
-    <link rel="android-icon" sizes="192x192" href="icon-192x192.png" />
-    <link
-      rel="apple-touch-icon"
-      sizes="114x114"
-      href="apple-touch-icon-114x114.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="120x120"
-      href="apple-touch-icon-120x120.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="144x144"
-      href="apple-touch-icon-144x144.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="152x152"
-      href="apple-touch-icon-152x152.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="apple-touch-icon-180x180.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="57x57"
-      href="apple-touch-icon-57x57.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="60x60"
-      href="apple-touch-icon-60x60.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="72x72"
-      href="apple-touch-icon-72x72.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="76x76"
-      href="apple-touch-icon-76x76.png"
-    />
-    <link rel="favicon" sizes="16x16" href="favicon-16x16.ico" />
-    <link rel="favicon" sizes="16x16" href="favicon-16x16.png" />
-    <link rel="favicon" sizes="32x32" href="favicon-32x32.ico" />
-    <link rel="favicon" sizes="32x32" href="favicon-32x32.png" />
-    <link rel="favicon" sizes="96x96" href="favicon-96x96.ico" />
-    <link rel="favicon" sizes="96x96" href="favicon-96x96.png" />
-    <link rel="mstile" sizes="150x150" href="mstile-150x150.png" />
-    <link rel="mstile" sizes="310x310" href="mstile-310x310.png" />
-    <link rel="mstile" sizes="70x70" href="mstile-70x70.png" />
+    <link rel="android-icon" sizes="192x192" href="icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png">
+    <link rel="favicon" sizes="16x16" href="favicon-16x16.ico">
+    <link rel="favicon" sizes="16x16" href="favicon-16x16.png">
+    <link rel="favicon" sizes="32x32" href="favicon-32x32.ico">
+    <link rel="favicon" sizes="32x32" href="favicon-32x32.png">
+    <link rel="favicon" sizes="96x96" href="favicon-96x96.ico">
+    <link rel="favicon" sizes="96x96" href="favicon-96x96.png">
+    <link rel="mstile" sizes="150x150" href="mstile-150x150.png">
+    <link rel="mstile" sizes="310x310" href="mstile-310x310.png">
+    <link rel="mstile" sizes="70x70" href="mstile-70x70.png">
 
-    <link rel="icon" type="image/pg" href="favicon.png" />
+    <link rel="icon" type="image/pg" href="favicon.png">
 
     <title>e1547</title>
-    <link rel="manifest" href="manifest.json" />
-    <link rel="stylesheet" type="text/css" href="splash/style.css" />
-    <link rel="stylesheet" type="text/css" href="splash/style.css" />
-  </head>
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" type="text/css" href="splash/style.css">
+    <style id="splash-screen-style">
+    html {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      min-height: 100%;
+      background-color: #FDB245;
+          background-size: 100% 100%;
+    }
+
+    .center {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .contain {
+      display:block;
+      width:100%; height:100%;
+      object-fit: contain;
+    }
+
+    .stretch {
+      display:block;
+      width:100%; height:100%;
+    }
+
+    .cover {
+      display:block;
+      width:100%; height:100%;
+      object-fit: cover;
+    }
+
+    .bottom {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      -ms-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+    }
+
+    .bottomLeft {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .bottomRight {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  </style>
+  <script id="splash-screen-script">
+    function removeSplashFromWeb() {
+      document.getElementById("splash")?.remove();
+      document.getElementById("splash-branding")?.remove();
+      document.body.style.background = "transparent";
+    }
+  </script>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+</head>
 
   <body>
+  <picture id="splash">
+      <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light)">
+      <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
+      <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
+  </picture>
     <div class="splash-screen center">
-      <picture id="splash">
-        <source
-          srcset="
-            splash/img/light-1x.png 1x,
-            splash/img/light-2x.png 2x,
-            splash/img/light-3x.png 3x,
-            splash/img/light-4x.png 4x
-          "
-          media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)"
-        />
-        <source
-          srcset="
-            splash/img/dark-1x.png 1x,
-            splash/img/dark-2x.png 2x,
-            splash/img/dark-3x.png 3x,
-            splash/img/dark-4x.png 4x
-          "
-          media="(prefers-color-scheme: dark)"
-        />
-        <img aria-hidden="true" src="splash/img/light-1x.png" />
-      </picture>
+      
       <div class="progress-indicator"><div></div><div></div><div></div><div></div></div>
     </div>
 
@@ -185,5 +198,6 @@
         }
       }, 500);
     </script>
-  </body>
-</html>
+  
+
+</body></html>

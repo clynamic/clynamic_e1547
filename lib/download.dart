@@ -8,12 +8,14 @@ class DownloadItem {
     required this.url,
     required this.icon,
     this.infoUrl,
+    this.platforms,
   });
 
   final String title;
   final String url;
   final String? infoUrl;
   final Widget icon;
+  final List<TargetPlatform>? platforms;
 }
 
 class DownloadList extends StatelessWidget {

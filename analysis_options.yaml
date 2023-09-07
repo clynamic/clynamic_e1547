@@ -2,6 +2,7 @@
 linter:
   rules:
     - always_declare_return_types
+    - prefer_relative_imports
     - annotate_overrides
     - avoid_bool_literals_in_conditional_expressions
     - avoid_catches_without_on_clauses
@@ -59,14 +60,12 @@ linter:
     - hash_and_equals
     - implementation_imports
     - implicit_call_tearoffs
-    - iterable_contains_unrelated_type
     - join_return_with_assignment
     - leading_newlines_in_multiline_strings
     - library_annotations
     - library_names
     - library_prefixes
     - library_private_types_in_public_api
-    - list_remove_unrelated_type
     - literal_only_boolean_expressions
     - missing_whitespace_between_adjacent_strings
     - no_adjacent_strings_in_list
@@ -94,7 +93,6 @@ linter:
     - prefer_const_literals_to_create_immutables
     - prefer_constructors_over_static_methods
     - prefer_contains
-    - prefer_equal_for_default_values
     - prefer_final_fields
     - prefer_for_elements_to_map_fromIterable
     - prefer_function_declarations_over_variables
@@ -111,7 +109,6 @@ linter:
     - prefer_iterable_whereType
     - prefer_null_aware_method_calls
     - prefer_null_aware_operators
-    - prefer_relative_imports
     - prefer_single_quotes
     - prefer_spread_collections
     - prefer_typing_uninitialized_variables
@@ -159,6 +156,7 @@ linter:
     - use_function_type_syntax_for_parameters
     - use_if_null_to_convert_nulls_to_bools
     - use_is_even_rather_than_modulo
+    - use_key_in_widget_constructors
     - use_late_for_private_fields_and_variables
     - use_named_constants
     - use_raw_strings
