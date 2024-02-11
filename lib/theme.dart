@@ -8,6 +8,7 @@ Color dimTextColor(BuildContext context, [double opacity = 0.5]) =>
 const Color siteBackgroundColor = Color(0xfffdb245);
 
 final ThemeData appTheme = ThemeData.from(
+  useMaterial3: false,
   colorScheme: ColorScheme.fromSwatch(
     primarySwatch: const MaterialColor(
       0xFFFCB328,

@@ -293,8 +293,8 @@ class _GalleryPageButtonState extends State<GalleryPageButton> {
       }
     }
 
-    return AnimatedBuilder(
-      animation: widget.controller,
+    return ListenableBuilder(
+      listenable: widget.controller,
       builder: (context, child) {
         bool enabled = false;
 

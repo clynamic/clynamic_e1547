@@ -50,7 +50,9 @@ class _HomeState extends State<Home> {
       color: siteBackgroundColor,
       child: NavigationList(
         title: NavigationTitle(
-            title: appTitle, scrollController: scrollController),
+          title: appTitle,
+          scrollController: scrollController,
+        ),
         scrollController: scrollController,
         sections: [
           PositionedListItem(

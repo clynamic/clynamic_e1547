@@ -3,8 +3,9 @@ import 'dart:math';
 import 'package:anchor_scroll_controller/anchor_scroll_controller.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/rendering.dart';
+
+import 'scroll_animator.dart';
 
 typedef PositionedListItemBuilder = Widget Function(
     BuildContext context, int index);
@@ -14,9 +15,7 @@ class PositionedListItem {
     required Widget child,
     this.name,
     this.title,
-  }) {
-    builder = (context, index) => child;
-  }
+  }) : builder = ((context, index) => child);
 
   PositionedListItem.builder({
     required this.builder,
@@ -41,17 +40,19 @@ class PositionedListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ScrollAnimator(
       controller: scrollController,
-      itemCount: sections.length,
-      itemBuilder: (context, index) {
-        return PositionedListSection(
+      builder: (context, controller, phyiscs) => ListView.builder(
+        controller: controller,
+        physics: phyiscs,
+        itemCount: sections.length,
+        itemBuilder: (context, index) => PositionedListSection(
           title: sections[index].title,
           index: index,
-          controller: scrollController,
+          controller: controller as AnchorScrollController,
           child: sections[index].builder(context, index),
-        );
-      },
+        ),
+      ),
     );
   }
 }
