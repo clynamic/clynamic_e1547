@@ -42,6 +42,7 @@ class PositionedListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScrollAnimator(
       controller: scrollController,
+      scrollSpeed: 1.5,
       builder: (context, controller, phyiscs) => ListView.builder(
         controller: controller,
         physics: phyiscs,
