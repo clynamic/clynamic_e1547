@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:seo_renderer/seo_renderer.dart';
 
@@ -196,23 +198,25 @@ class GalleryPageView extends StatefulWidget {
 }
 
 class _GalleryPageViewState extends State<GalleryPageView> {
-  late PageController controller =
-      PageController(initialPage: widget.initialIndex);
+  late MutablePageController controller =
+      MutablePageController(initialPage: widget.initialIndex);
 
   void updatePageController(double maxWidth) {
-    double oneOrHigher(double value) => (value > 1) ? 1 : value;
+    double? tileWidth = widget.tileWidth;
     double updated;
     if (widget.viewportFraction != null) {
       updated = widget.viewportFraction!;
-    } else if (widget.tileWidth != null) {
-      updated = oneOrHigher(widget.tileWidth! / maxWidth);
+    } else if (tileWidth != null) {
+      if (tileWidth * 2.5 > maxWidth) {
+        updated = 1;
+      } else {
+        updated = min(1, max(0.1, tileWidth / maxWidth));
+      }
     } else {
       updated = 1;
     }
     if (updated != controller.viewportFraction) {
-      controller = PageController(
-        viewportFraction: updated,
-      );
+      controller.viewportFraction = updated;
     }
   }
 
@@ -364,4 +368,20 @@ class _GalleryPageButtonState extends State<GalleryPageButton> {
       },
     );
   }
+}
+
+class MutablePageController extends PageController {
+  MutablePageController({
+    super.initialPage,
+    super.keepPage,
+    super.viewportFraction,
+  }) : _viewportFraction = viewportFraction;
+
+  @override
+  double get viewportFraction => _viewportFraction;
+  set viewportFraction(double value) {
+    _viewportFraction = value;
+  }
+
+  double _viewportFraction;
 }
