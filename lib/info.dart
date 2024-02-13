@@ -120,6 +120,7 @@ const List<DownloadItem> downloads = [
 
 const String reviewInfo = 'Select reviews from the store';
 
+// TODO: add more and shuffle select only 3?
 List<ReviewItem> reviews = [
   ReviewItem(
     user: 'gato el gato',
