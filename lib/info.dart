@@ -1,3 +1,4 @@
+import 'reviews.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -88,6 +89,8 @@ const List<FeatureItem> features = [
   ),
 ];
 
+const String downloadInfo = 'Get e1547 on your device!';
+
 const List<DownloadItem> downloads = [
   DownloadItem(
     title: 'Google Play',
@@ -114,6 +117,44 @@ const List<DownloadItem> downloads = [
     platforms: [TargetPlatform.android, TargetPlatform.iOS],
   ),
 ];
+
+const String reviewInfo = 'Select reviews from the store';
+
+List<ReviewItem> reviews = [
+  ReviewItem(
+    user: 'gato el gato',
+    avatar:
+        'https://lh3.googleusercontent.com/a-/ALV-UjUIQCsP0_UNY2jSqMJzckb_qluTYg7Haj6-08-M8MN7ew',
+    text:
+        'easily improves the mobile e6 experience by a long shot with a slick UI and all necessary features. Video Playback is laggy sometimes tho.',
+    stars: 5,
+    date: DateTime(2024, 2, 8, 18, 42),
+    link:
+        'https://play.google.com/console/u/0/developers/8646034098155816817/app/4973927419752753200/user-feedback/review-details?reviewId=e0a4a03f-a4fd-419d-b653-7272d4335a70&corpus=PUBLIC_REVIEWS',
+  ),
+  ReviewItem(
+    user: 'George Valek',
+    avatar:
+        'https://lh3.googleusercontent.com/a-/ALV-UjUz5OGGAdrLcroJLPwxn6oYpum3Qdv_7PMbn7hxel4onhw',
+    text: 'GRRRR I WANT TO ENSURE THE SURVIVAL OF THE SPECIES',
+    stars: 5,
+    date: DateTime(2024, 1, 12, 17, 36),
+    link:
+        'https://play.google.com/console/u/0/developers/8646034098155816817/app/4973927419752753200/user-feedback/review-details?reviewId=acf14df5-70e0-4371-b00d-62694c1afa77&corpus=PUBLIC_REVIEWS',
+  ),
+  ReviewItem(
+    user: 'Zervó',
+    avatar:
+        'https://lh3.googleusercontent.com/a-/ALV-UjXXuV4sp1D08bhVmSq2vvnOb0gqSrd-U2FYHwNVFMvCfKY',
+    text: 'Without doubt the best way to browse e6',
+    stars: 5,
+    date: DateTime(2023, 2, 2, 12, 9),
+    link:
+        'https://play.google.com/console/u/0/developers/8646034098155816817/app/4973927419752753200/user-feedback/review-details?reviewId=3f7d874b-4a63-407c-9076-1ce54d7276dc&corpus=PUBLIC_REVIEWS',
+  ),
+];
+
+const String socialInfo = 'Connect with us!';
 
 const List<SocialItem> socials = [
   SocialItem(

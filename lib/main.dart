@@ -8,6 +8,7 @@ import 'features.dart';
 import 'gallery.dart';
 import 'info.dart';
 import 'navigation.dart';
+import 'reviews.dart';
 import 'scrolling.dart';
 import 'social.dart';
 import 'theme.dart';
@@ -123,18 +124,62 @@ class _HomeState extends State<Home> {
             ),
           ),
           PositionedListItem(
+            name: NavigationHeaders.Reviews.name,
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextRenderer(
+                  style: TextRendererStyle.header3,
+                  child: Text('Reviews'),
+                ),
+                TextRenderer(
+                  style: TextRendererStyle.paragraph,
+                  child: Text(
+                    reviewInfo,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+              ],
+            ),
+            child: ReviewList(reviews: reviews),
+          ),
+          PositionedListItem(
             name: NavigationHeaders.Download.name,
-            title: const TextRenderer(
-              style: TextRendererStyle.header3,
-              child: Text('Download'),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextRenderer(
+                  style: TextRendererStyle.header3,
+                  child: Text('Download'),
+                ),
+                TextRenderer(
+                  style: TextRendererStyle.paragraph,
+                  child: Text(
+                    downloadInfo,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+              ],
             ),
             child: const DownloadList(downloads: downloads),
           ),
           PositionedListItem(
             name: NavigationHeaders.Social.name,
-            title: const TextRenderer(
-              style: TextRendererStyle.header3,
-              child: Text('Social'),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextRenderer(
+                  style: TextRendererStyle.header3,
+                  child: Text('Social'),
+                ),
+                TextRenderer(
+                  style: TextRendererStyle.paragraph,
+                  child: Text(
+                    socialInfo,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+              ],
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(
@@ -157,6 +202,7 @@ class _HomeState extends State<Home> {
 enum NavigationHeaders {
   e1547,
   Features,
+  Reviews,
   Download,
   Social,
 }
