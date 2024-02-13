@@ -88,8 +88,6 @@ const List<FeatureItem> features = [
   ),
 ];
 
-const String downloadInfo = 'You can download the app from these sources:\n\n';
-
 const List<DownloadItem> downloads = [
   DownloadItem(
     title: 'Google Play',
@@ -102,6 +100,12 @@ const List<DownloadItem> downloads = [
     url: 'https://f-droid.org/de/packages/net.e1547/',
     icon: FaIcon(FontAwesomeIcons.android),
     platforms: [TargetPlatform.android],
+  ),
+  DownloadItem(
+    title: 'Sideloadly',
+    url: 'https://sideloadly.io/',
+    icon: FaIcon(FontAwesomeIcons.apple),
+    platforms: [TargetPlatform.iOS],
   ),
   DownloadItem(
     title: 'GitHub',

@@ -7,15 +7,13 @@ class DownloadItem {
     required this.title,
     required this.url,
     required this.icon,
-    this.infoUrl,
-    this.platforms,
+    required this.platforms,
   });
 
   final String title;
   final String url;
-  final String? infoUrl;
   final Widget icon;
-  final List<TargetPlatform>? platforms;
+  final List<TargetPlatform> platforms;
 }
 
 class DownloadList extends StatelessWidget {
@@ -27,8 +25,14 @@ class DownloadList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
-      child: Column(
-        children: downloads.map((e) => DownloadCard(item: e)).toList(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: downloads.map((e) => DownloadCard(item: e)).toList(),
+          ),
+        ],
       ),
     );
   }
@@ -43,72 +47,47 @@ class DownloadCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 600),
-                child: Card(
-                  clipBehavior: Clip.antiAlias,
-                  child: InkWell(
-                    onTap: () => launchUrl(Uri.parse(item.url)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: IntrinsicHeight(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              width: 40,
-                            ),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  item.icon,
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
-                                    child: LinkRenderer(
-                                      text: item.title,
-                                      href: item.url,
-                                      child: Text(
-                                        item.title,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge!,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            if (item.infoUrl != null) ...[
-                              const VerticalDivider(),
-                              IconButton(
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(),
-                                onPressed: () =>
-                                    launchUrl(Uri.parse(item.infoUrl!)),
-                                icon: const Icon(Icons.question_mark),
-                                iconSize: Theme.of(context).iconTheme.size,
-                              ),
-                            ] else
-                              const SizedBox(
-                                width: 40,
-                              ),
-                          ],
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 400),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Card(
+              clipBehavior: Clip.antiAlias,
+              child: InkWell(
+                onTap: () => launchUrl(Uri.parse(item.url)),
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      item.icon,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: LinkRenderer(
+                          text: item.title,
+                          href: item.url,
+                          child: Text(
+                            item.title,
+                            style: Theme.of(context).textTheme.titleLarge!,
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(
+                item.platforms.map((e) => e.name).join(', '),
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

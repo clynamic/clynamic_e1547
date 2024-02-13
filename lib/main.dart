@@ -128,24 +128,7 @@ class _HomeState extends State<Home> {
               style: TextRendererStyle.header3,
               child: Text('Download'),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: TextRenderer(
-                    child: Text(
-                      downloadInfo,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(color: dimTextColor(context, 0.6)),
-                    ),
-                  ),
-                ),
-                const DownloadList(downloads: downloads),
-              ],
-            ),
+            child: const DownloadList(downloads: downloads),
           ),
           PositionedListItem(
             name: NavigationHeaders.Social.name,
