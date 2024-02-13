@@ -34,7 +34,6 @@ flutter:
     - app-icon.png
     - app-banner.png
     - screenshots/
-    - altstore.json
 
 flutter_native_splash:
   color: "#FDB245"

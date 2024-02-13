@@ -104,13 +104,6 @@ const List<DownloadItem> downloads = [
     platforms: [TargetPlatform.android],
   ),
   DownloadItem(
-    title: 'AltStore',
-    url: 'https://e1547.clynamic.net/assets/altstore.json',
-    infoUrl: 'https://altstore.io/',
-    icon: FaIcon(FontAwesomeIcons.appStore),
-    platforms: [TargetPlatform.iOS],
-  ),
-  DownloadItem(
     title: 'GitHub',
     url: 'https://github.com/clragon/e1547/#readme',
     icon: FaIcon(FontAwesomeIcons.github),
