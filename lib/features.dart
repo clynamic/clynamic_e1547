@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:seo_renderer/renderers/text_renderer/text_renderer_style.dart';
 import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
-import 'gallery.dart';
 import 'scrolling.dart';
 import 'theme.dart';
 
@@ -32,6 +31,7 @@ class FeatureDisplay extends StatefulWidget {
 
 class _FeatureDisplayState extends State<FeatureDisplay> {
   int? selected;
+  int? previous;
 
   @override
   Widget build(BuildContext context) {
@@ -39,36 +39,40 @@ class _FeatureDisplayState extends State<FeatureDisplay> {
       children: [
         Row(
           children: [
-            PositionedListHeader(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                textBaseline: TextBaseline.ideographic,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const TextRenderer(
-                    style: TextRendererStyle.header3,
-                    child: Text('Features'),
-                  ),
-                  AnimatedOpacity(
-                    opacity: selected == null ? 1 : 0,
-                    duration: const Duration(milliseconds: 200),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        '(tap any)',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
+            Expanded(
+              child: PositionedListHeader(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.ideographic,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const TextRenderer(
+                      style: TextRendererStyle.header3,
+                      child: Text('Features'),
+                    ),
+                    Flexible(
+                      child: AnimatedOpacity(
+                        opacity: selected == null ? 1 : 0,
+                        duration: const Duration(milliseconds: 200),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(
+                            '(tap any)',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-            const Spacer(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
+              padding: const EdgeInsets.only(right: 32),
               child: IgnorePointer(
                 ignoring: selected == null,
                 child: AnimatedOpacity(
@@ -76,7 +80,10 @@ class _FeatureDisplayState extends State<FeatureDisplay> {
                   duration: const Duration(milliseconds: 200),
                   child: IconButton(
                     onPressed: () {
-                      setState(() => selected = null);
+                      setState(() {
+                        previous = selected;
+                        selected = null;
+                      });
                       widget.onItemToggle?.call();
                     },
                     icon: const Icon(Icons.close),
@@ -90,30 +97,75 @@ class _FeatureDisplayState extends State<FeatureDisplay> {
           duration: const Duration(milliseconds: 200),
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
-            child: selected == null
-                ? FeatureGrid(
+            child: SizedBox(
+              width: 1000,
+              child: Stack(
+                fit: StackFit.passthrough,
+                children: [
+                  FeatureGrid(
                     features: widget.features,
                     onTapItem: (index) {
-                      setState(() => selected = index);
+                      setState(() {
+                        previous = index;
+                        selected = index;
+                      });
                       widget.onItemToggle?.call();
                     },
-                  )
-                : SizedBox(
-                    height: 500,
-                    child: GalleryPageView(
-                      itemCount: widget.features.length,
-                      initialIndex: selected!,
-                      builder: (context, index) => Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(32),
-                          child: FeatureCard(
-                            item: widget.features[index],
-                            expanded: true,
+                  ),
+                  Positioned.fill(
+                    child: IgnorePointer(
+                      ignoring: selected == null,
+                      child: AnimatedOpacity(
+                        opacity: selected != null ? 1 : 0,
+                        duration: const Duration(milliseconds: 200),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              previous = selected;
+                              selected = null;
+                            });
+                            widget.onItemToggle?.call();
+                          },
+                          child: Card(
+                            margin: const EdgeInsets.symmetric(horizontal: 30),
+                            color: Colors.black.withOpacity(0.5),
+                            child: const SizedBox.expand(),
                           ),
                         ),
                       ),
                     ),
                   ),
+                  Positioned.fill(
+                    child: Builder(
+                      builder: (context) => IgnorePointer(
+                        ignoring: selected == null,
+                        child: AnimatedOpacity(
+                          opacity: selected != null ? 1 : 0,
+                          duration: const Duration(milliseconds: 200),
+                          onEnd: () => setState(() {
+                            if (selected == null) {
+                              previous = null;
+                            }
+                          }),
+                          child: previous != null
+                              ? Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 30),
+                                  child: Center(
+                                    child: FeatureCard(
+                                      item: widget.features[previous!],
+                                      expanded: true,
+                                    ),
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ],
