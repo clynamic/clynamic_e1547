@@ -87,6 +87,8 @@ class ReviewCard extends StatelessWidget {
                         const Spacer(),
                         for (var i = 0; i < item.stars; i++)
                           const Icon(Icons.star, color: Colors.amber),
+                        for (var i = item.stars; i < 5; i++)
+                          const Icon(Icons.star, color: Colors.grey),
                       ],
                     ),
                     const SizedBox(height: 8),

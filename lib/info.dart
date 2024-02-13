@@ -1,9 +1,9 @@
-import 'reviews.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'download.dart';
 import 'features.dart';
+import 'reviews.dart';
 import 'social.dart';
 
 const String siteName = 'clynamic';
