@@ -28,9 +28,11 @@ class DownloadList extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: downloads.map((e) => DownloadCard(item: e)).toList(),
+          Flexible(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: downloads.map((e) => DownloadCard(item: e)).toList(),
+            ),
           ),
         ],
       ),
