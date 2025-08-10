@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seo_renderer/renderers/text_renderer/text_renderer_style.dart';
-import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
+import 'package:seo/seo.dart';
 
 import 'scrolling.dart';
 import 'theme.dart';
@@ -46,9 +45,10 @@ class _FeatureDisplayState extends State<FeatureDisplay> {
                   textBaseline: TextBaseline.ideographic,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const TextRenderer(
-                      style: TextRendererStyle.header3,
-                      child: Text('Features'),
+                    Seo.text(
+                      text: 'Features',
+                      style: TextTagStyle.h3,
+                      child: const Text('Features'),
                     ),
                     Flexible(
                       child: AnimatedOpacity(
@@ -58,10 +58,7 @@ class _FeatureDisplayState extends State<FeatureDisplay> {
                           padding: EdgeInsets.symmetric(horizontal: 8),
                           child: Text(
                             '(tap any)',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
-                            ),
+                            style: TextStyle(color: Colors.grey, fontSize: 14),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -128,7 +125,7 @@ class _FeatureDisplayState extends State<FeatureDisplay> {
                           },
                           child: Card(
                             margin: const EdgeInsets.symmetric(horizontal: 30),
-                            color: Colors.black.withOpacity(0.5),
+                            color: Colors.black.withAlpha(128),
                             child: const SizedBox.expand(),
                           ),
                         ),
@@ -150,7 +147,8 @@ class _FeatureDisplayState extends State<FeatureDisplay> {
                           child: previous != null
                               ? Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 30),
+                                    horizontal: 30,
+                                  ),
                                   child: Center(
                                     child: FeatureCard(
                                       item: widget.features[previous!],
@@ -221,14 +219,17 @@ class FeatureCard extends StatelessWidget {
             child: SingleChildScrollView(
               primary: false,
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: TextRenderer(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                child: Seo.text(
+                  text: item.description,
                   child: Text(
                     item.description,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: dimTextColor(context, 0.8),
-                        ),
+                      color: dimTextColor(context, 0.8),
+                    ),
                   ),
                 ),
               ),
@@ -239,18 +240,19 @@ class FeatureCard extends StatelessWidget {
         return [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: TextRenderer(
-              style: TextRendererStyle.header4,
+            child: Seo.text(
+              text: item.subtitle,
+              style: TextTagStyle.h4,
               child: Text(
                 item.subtitle,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: dimTextColor(context),
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium!.copyWith(color: dimTextColor(context)),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-          )
+          ),
         ];
       }
     }
@@ -260,8 +262,9 @@ class FeatureCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding:
-              expanded ? const EdgeInsets.all(32) : const EdgeInsets.all(8),
+          padding: expanded
+              ? const EdgeInsets.all(32)
+              : const EdgeInsets.all(8),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -274,9 +277,12 @@ class FeatureCard extends StatelessWidget {
                   Flexible(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
-                      child: TextRenderer(
-                        style: TextRendererStyle.header2,
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: Seo.text(
+                        text: item.title,
+                        style: TextTagStyle.h2,
                         child: Text(
                           item.title,
                           style: Theme.of(context).textTheme.titleLarge,

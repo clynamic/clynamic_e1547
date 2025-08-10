@@ -1,7 +1,7 @@
 import 'package:anchor_scroll_controller/anchor_scroll_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:seo_renderer/seo_renderer.dart';
-import 'package:url_strategy/url_strategy.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:seo/seo.dart';
 
 import 'download.dart';
 import 'features.dart';
@@ -14,7 +14,7 @@ import 'social.dart';
 import 'theme.dart';
 
 void main() {
-  setPathUrlStrategy();
+  usePathUrlStrategy();
   runApp(const App());
 }
 
@@ -23,13 +23,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RobotDetector(
+    return SeoController(
+      enabled: true,
+      tree: WidgetTree(context: context),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: '$siteName - $appTitle',
         theme: appTheme,
         home: const Home(),
-        navigatorObservers: [seoRouteObserver],
       ),
     );
   }
@@ -67,30 +68,30 @@ class _HomeState extends State<Home> {
                     elevation: 16,
                     child: SizedBox(
                       height: 140,
-                      child: ImageRenderer(
+                      child: Seo.image(
                         alt: appTitle,
-                        child: Image.asset(
-                          appIcon,
-                          fit: BoxFit.contain,
-                        ),
+                        src: appIcon,
+                        child: Image.asset(appIcon, fit: BoxFit.contain),
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16),
-                    child: TextRenderer(
-                      style: TextRendererStyle.header1,
+                    child: Seo.text(
+                      text: appTitle,
+                      style: TextTagStyle.h1,
                       child: Text(
                         appTitle,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displaySmall
-                            ?.copyWith(color: Colors.white, shadows: [
-                          const Shadow(
-                            offset: Offset(0, 8),
-                            blurRadius: 6,
-                          ),
-                        ]),
+                        style: Theme.of(context).textTheme.displaySmall
+                            ?.copyWith(
+                              color: Colors.white,
+                              shadows: [
+                                const Shadow(
+                                  offset: Offset(0, 8),
+                                  blurRadius: 6,
+                                ),
+                              ],
+                            ),
                       ),
                     ),
                   ),
@@ -99,18 +100,17 @@ class _HomeState extends State<Home> {
             ),
             child: Column(
               children: [
-                const TextRenderer(
-                  style: TextRendererStyle.header2,
-                  child: Text(
+                Seo.text(
+                  text: appDescription,
+                  style: TextTagStyle.h2,
+                  child: const Text(
                     appDescription,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 ScreenshotInlineGallery(
                   assets: {
-                    for (final e in screenshotNames) e: '$screenshotDir$e.png'
+                    for (final e in screenshotNames) e: '$screenshotDir$e.png',
                   },
                 ),
               ],
@@ -128,12 +128,13 @@ class _HomeState extends State<Home> {
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const TextRenderer(
-                  style: TextRendererStyle.header3,
-                  child: Text('Reviews'),
+                Seo.text(
+                  text: 'Reviews',
+                  style: TextTagStyle.h3,
+                  child: const Text('Reviews'),
                 ),
-                TextRenderer(
-                  style: TextRendererStyle.paragraph,
+                Seo.text(
+                  text: reviewInfo,
                   child: Text(
                     reviewInfo,
                     style: Theme.of(context).textTheme.bodySmall,
@@ -148,12 +149,13 @@ class _HomeState extends State<Home> {
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const TextRenderer(
-                  style: TextRendererStyle.header3,
-                  child: Text('Download'),
+                Seo.text(
+                  text: 'Download',
+                  style: TextTagStyle.h3,
+                  child: const Text('Download'),
                 ),
-                TextRenderer(
-                  style: TextRendererStyle.paragraph,
+                Seo.text(
+                  text: downloadInfo,
                   child: Text(
                     downloadInfo,
                     style: Theme.of(context).textTheme.bodySmall,
@@ -168,12 +170,13 @@ class _HomeState extends State<Home> {
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const TextRenderer(
-                  style: TextRendererStyle.header3,
-                  child: Text('Social'),
+                Seo.text(
+                  text: 'Social',
+                  style: TextTagStyle.h3,
+                  child: const Text('Social'),
                 ),
-                TextRenderer(
-                  style: TextRendererStyle.paragraph,
+                Seo.text(
+                  text: socialInfo,
                   child: Text(
                     socialInfo,
                     style: Theme.of(context).textTheme.bodySmall,
@@ -184,12 +187,8 @@ class _HomeState extends State<Home> {
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 32,
-              ).copyWith(
-                bottom: 32,
-              ),
-              child: const SocialWrap(
-                socials: socials,
-              ),
+              ).copyWith(bottom: 32),
+              child: const SocialWrap(socials: socials),
             ),
           ),
         ],
@@ -199,10 +198,4 @@ class _HomeState extends State<Home> {
 }
 
 // ignore_for_file: constant_identifier_names
-enum NavigationHeaders {
-  e1547,
-  Features,
-  Reviews,
-  Download,
-  Social,
-}
+enum NavigationHeaders { e1547, Features, Reviews, Download, Social }

@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:seo_renderer/seo_renderer.dart';
+import 'package:seo/seo.dart';
 
 import 'navigation.dart';
 import 'scrolling.dart';
@@ -28,11 +28,7 @@ class ScreenshotInlineGallery extends StatelessWidget {
               assetPath: assets.values.toList()[index],
               name: assets.keys.toList()[index],
               onTap: () {
-                showScreenshotFullscreenGallery(
-                  context,
-                  assets,
-                  index,
-                );
+                showScreenshotFullscreenGallery(context, assets, index);
               },
             ),
           ),
@@ -72,9 +68,7 @@ class ScreenshotFullscreenGallery extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        actions: const [
-          CloseButton(),
-        ],
+        actions: const [CloseButton()],
         backgroundColor: Colors.transparent,
         flexibleSpace: const IgnorePointer(),
         elevation: 0,
@@ -87,9 +81,7 @@ class ScreenshotFullscreenGallery extends StatelessWidget {
         },
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxHeight: 1000,
-            ),
+            constraints: const BoxConstraints(maxHeight: 1000),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 60),
               child: GalleryPageView(
@@ -135,26 +127,23 @@ class ScreenshotCard extends StatelessWidget {
                 aspectRatio: aspectRatio,
                 child: Card(
                   clipBehavior: Clip.antiAlias,
+                  // ignore: deprecated_member_use
                   color: Theme.of(context).colorScheme.background,
                   elevation: 8,
                   child: Stack(
                     clipBehavior: Clip.none,
                     children: [
                       Positioned.fill(
-                        child: ImageRenderer(
+                        child: Seo.image(
                           alt: name,
-                          child: Image.asset(
-                            assetPath,
-                            fit: BoxFit.cover,
-                          ),
+                          src: assetPath,
+                          child: Image.asset(assetPath, fit: BoxFit.cover),
                         ),
                       ),
                       Material(
                         type: MaterialType.transparency,
-                        child: InkWell(
-                          onTap: onTap,
-                        ),
-                      )
+                        child: InkWell(onTap: onTap),
+                      ),
                     ],
                   ),
                 ),
@@ -164,8 +153,9 @@ class ScreenshotCard extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(4),
-          child: TextRenderer(
-            style: TextRendererStyle.header6,
+          child: Seo.text(
+            text: name,
+            style: TextTagStyle.h6,
             child: Text(name),
           ),
         ),
@@ -183,8 +173,10 @@ class GalleryPageView extends StatefulWidget {
     this.tileWidth,
     this.viewportFraction,
     this.initialIndex = 0,
-  }) : assert(tileWidth == null || viewportFraction == null,
-            'Cannot specify tileWidth and viewportFraction');
+  }) : assert(
+         tileWidth == null || viewportFraction == null,
+         'Cannot specify tileWidth and viewportFraction',
+       );
 
   final bool padEnds;
   final double? tileWidth;
@@ -198,8 +190,9 @@ class GalleryPageView extends StatefulWidget {
 }
 
 class _GalleryPageViewState extends State<GalleryPageView> {
-  late MutablePageController controller =
-      MutablePageController(initialPage: widget.initialIndex);
+  late MutablePageController controller = MutablePageController(
+    initialPage: widget.initialIndex,
+  );
 
   void updatePageController(double maxWidth) {
     double? tileWidth = widget.tileWidth;
@@ -253,10 +246,7 @@ class _GalleryPageViewState extends State<GalleryPageView> {
   }
 }
 
-enum GalleryButtonDirection {
-  left,
-  right,
-}
+enum GalleryButtonDirection { left, right }
 
 class GalleryPageButton extends StatefulWidget {
   const GalleryPageButton({
@@ -306,11 +296,13 @@ class _GalleryPageButtonState extends State<GalleryPageButton> {
             widget.controller.position.hasContentDimensions) {
           switch (widget.direction) {
             case GalleryButtonDirection.left:
-              enabled = widget.controller.position.minScrollExtent <
+              enabled =
+                  widget.controller.position.minScrollExtent <
                   widget.controller.position.pixels;
               break;
             case GalleryButtonDirection.right:
-              enabled = widget.controller.position.maxScrollExtent >
+              enabled =
+                  widget.controller.position.maxScrollExtent >
                   widget.controller.position.pixels;
               break;
           }

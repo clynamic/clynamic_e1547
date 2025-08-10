@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seo_renderer/seo_renderer.dart';
+import 'package:seo/seo.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DownloadItem {
@@ -67,8 +67,8 @@ class DownloadCard extends StatelessWidget {
                       item.icon,
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: LinkRenderer(
-                          text: item.title,
+                        child: Seo.link(
+                          anchor: item.title,
                           href: item.url,
                           child: Text(
                             item.title,

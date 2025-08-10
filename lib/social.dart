@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seo_renderer/seo_renderer.dart';
+import 'package:seo/seo.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'theme.dart';
@@ -26,9 +26,7 @@ class SocialWrap extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Center(
-        child: Wrap(
-          children: socials.map((e) => SocialCard(item: e)).toList(),
-        ),
+        child: Wrap(children: socials.map((e) => SocialCard(item: e)).toList()),
       ),
     );
   }
@@ -51,25 +49,23 @@ class SocialCard extends StatelessWidget {
             padding: const EdgeInsets.all(24),
             child: DefaultTextStyle(
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: dimTextColor(context),
-                    fontSize: 18,
-                  ),
+                color: dimTextColor(context),
+                fontSize: 18,
+              ),
               child: IconTheme(
-                data: Theme.of(context).iconTheme.copyWith(
-                      color: dimTextColor(context),
-                    ),
+                data: Theme.of(
+                  context,
+                ).iconTheme.copyWith(color: dimTextColor(context)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     item.icon,
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: LinkRenderer(
-                        text: item.title,
+                      child: Seo.link(
+                        anchor: item.title,
                         href: item.url,
-                        child: Text(
-                          item.title,
-                        ),
+                        child: Text(item.title),
                       ),
                     ),
                   ],

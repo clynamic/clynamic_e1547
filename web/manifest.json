@@ -1,39 +1,35 @@
 {
-  "name": "clynamic - e1547",
-  "short_name": "e1547",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#FDB245",
-  "theme_color": "#FDB245",
-  "description": "A e621 and e926 mobile app",
-  "orientation": "portrait-primary",
-  "prefer_related_applications": false,
-  "icons": [
-    {
-      "src": "/icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "density": "4.0"
-    },
-    {
-      "src": "/icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "density": "4.0"
-    },
-    {
-      "src": "icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "density": "4.0",
-      "purpose": "maskable"
-    },
-    {
-      "src": "icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "density": "4.0",
-      "purpose": "maskable"
-    }
-  ]
+    "name": "e1547_clynamic",
+    "short_name": "e1547_clynamic",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#FDB245",
+    "theme_color": "#FDB245",
+    "description": "e1547 landing page",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
 }

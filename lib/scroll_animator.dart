@@ -33,7 +33,8 @@ class ScrollAnimator extends StatefulWidget {
     BuildContext context,
     ScrollController controller,
     ScrollPhysics? physics,
-  ) builder;
+  )
+  builder;
 
   @override
   State<ScrollAnimator> createState() => _ScrollAnimatorState();
@@ -96,12 +97,16 @@ class _ScrollAnimatorController with ChangeNotifier {
 
   static double _calcMaxDelta(ScrollController controller, double delta) {
     return delta > 0
-        ? math.min(controller.position.pixels + delta,
-                controller.position.maxScrollExtent) -
-            controller.position.pixels
-        : math.max(controller.position.pixels + delta,
-                controller.position.minScrollExtent) -
-            controller.position.pixels;
+        ? math.min(
+                controller.position.pixels + delta,
+                controller.position.maxScrollExtent,
+              ) -
+              controller.position.pixels
+        : math.max(
+                controller.position.pixels + delta,
+                controller.position.minScrollExtent,
+              ) -
+              controller.position.pixels;
   }
 
   void handleDesktopScroll(
@@ -122,7 +127,8 @@ class _ScrollAnimatorController with ChangeNotifier {
         } else {
           _physics = const NeverScrollableScrollPhysics();
         }
-        bool outOfBounds = posPixels < controller.position.minScrollExtent ||
+        bool outOfBounds =
+            posPixels < controller.position.minScrollExtent ||
             posPixels > controller.position.maxScrollExtent;
         double calcDelta = _calcMaxDelta(controller, event.scrollDelta.dy);
         if (!outOfBounds) {
@@ -136,10 +142,10 @@ class _ScrollAnimatorController with ChangeNotifier {
           bool shouldLock = _lastLock != null
               ? (_lastLock == currPos)
               : (posPixels != currPos + deltaDelta &&
-                  (currPos != controller.position.maxScrollExtent ||
-                      currDelta < 0) &&
-                  (currPos != controller.position.minScrollExtent ||
-                      currDelta > 0));
+                    (currPos != controller.position.maxScrollExtent ||
+                        currDelta < 0) &&
+                    (currPos != controller.position.minScrollExtent ||
+                        currDelta > 0));
           if (!outOfBounds && shouldLock) {
             controller.jumpTo(posPixels);
             _lastLock = posPixels;
@@ -150,9 +156,11 @@ class _ScrollAnimatorController with ChangeNotifier {
             return;
           } else {
             if (_lastLock != null || outOfBounds) {
-              controller.jumpTo(_lastLock != null
-                  ? posPixels
-                  : (currPos - _calcMaxDelta(controller, currDelta)));
+              controller.jumpTo(
+                _lastLock != null
+                    ? posPixels
+                    : (currPos - _calcMaxDelta(controller, currDelta)),
+              );
             }
             _lastLock = null;
             handleDesktopScroll(event, scrollSpeed, animationCurve, false);

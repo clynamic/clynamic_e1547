@@ -31,7 +31,8 @@ const List<FeatureItem> features = [
     title: 'Browse',
     subtitle: 'Browse posts, pools and relations easily',
     icon: Icon(Icons.open_in_browser),
-    description: '• Browse and search posts and pools\n\n'
+    description:
+        '• Browse and search posts and pools\n\n'
         '• Autocomplete, add and subtract tags from searches\n\n'
         '• Click tags to search and long click to read their wiki\n\n'
         '• Reach parents, children and pools of a post in a single tap\n\n'
@@ -41,7 +42,8 @@ const List<FeatureItem> features = [
     title: 'Like',
     subtitle: 'Favorite, vote on and block posts',
     icon: Icon(Icons.favorite),
-    description: '• Favorite posts and list your favorites\n\n'
+    description:
+        '• Favorite posts and list your favorites\n\n'
         '• Sync your blacklist with full syntax support\n\n'
         '• Up and downvote posts\n\n'
         '• Edit post tags, descriptions, parents, ratings, and sources\n\n'
@@ -51,26 +53,30 @@ const List<FeatureItem> features = [
     title: 'Save',
     subtitle: 'Download pictures and follow tags',
     icon: Icon(Icons.download),
-    description: '• Download pictures and videos\n\n'
+    description:
+        '• Download pictures and videos\n\n'
         '• Multi-download posts by long clicking them in the grid\n\n'
         '• Follow artists, tag searches and pools\n\n'
         '• Keep track of how many new posts for your follows are available\n\n'
         '• Share links or open posts in your browser\n\n',
   ),
   FeatureItem(
-      title: 'Watch',
-      subtitle: 'Swipe through images, videos and gifs',
-      icon: Icon(Icons.play_arrow),
-      description: '• Swipe through detail and fullscreen post views\n\n'
-          '• Watch short and long videos with matching controls\n\n'
-          '• See animated gifs everywhere (you cant stop them)\n\n'
-          '• Double tap videos to skip ahead or revert\n\n'
-          '• Mute or unmute videos on the fly and in the settings\n\n'),
+    title: 'Watch',
+    subtitle: 'Swipe through images, videos and gifs',
+    icon: Icon(Icons.play_arrow),
+    description:
+        '• Swipe through detail and fullscreen post views\n\n'
+        '• Watch short and long videos with matching controls\n\n'
+        '• See animated gifs everywhere (you cant stop them)\n\n'
+        '• Double tap videos to skip ahead or revert\n\n'
+        '• Mute or unmute videos on the fly and in the settings\n\n',
+  ),
   FeatureItem(
     title: 'Talk',
     subtitle: 'Comment on posts and visit the forums',
     icon: Icon(Icons.comment),
-    description: '• Write comments with DText syntax and preview\n\n'
+    description:
+        '• Write comments with DText syntax and preview\n\n'
         '• Reply to other users or edit your comments\n\n'
         '• Up and downvote comments\n\n'
         '• See user profiles and see their stats and uploads\n\n'
@@ -81,7 +87,8 @@ const List<FeatureItem> features = [
     title: 'Customize',
     subtitle: 'Adjust colors and grids to your liking',
     icon: Icon(Icons.wb_twighlight),
-    description: '• Choose from light, dark, amoled and the blue theme\n\n'
+    description:
+        '• Choose from light, dark, amoled and the blue theme\n\n'
         '• Shrink or enlarge post tiles in the grid settings\n\n'
         '• Show post infos on tiles or have simple images only\n\n'
         '• Enable automatic upvoting when favoriting\n\n'
@@ -120,7 +127,6 @@ const List<DownloadItem> downloads = [
 
 const String reviewInfo = 'Select reviews from the store';
 
-// TODO: add more and shuffle select only 3?
 List<ReviewItem> reviews = [
   ReviewItem(
     user: 'gato el gato',

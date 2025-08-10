@@ -5,30 +5,34 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.13.0 <4.0.0"
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: ">=3.32.0 <4.0.0"
 
 dependencies:
-  url_strategy: ^0.2.0
-  font_awesome_flutter: ^10.4.0
-  url_launcher: ^6.1.11
+  font_awesome_flutter: ^10.9.0
+  url_launcher: ^6.3.2
   expandable: ^5.0.1
-  seo_renderer: ^0.6.0
+  seo: ^0.0.10
   anchor_scroll_controller: ^0.4.3
   backdrop: ^0.9.0
 
-  intl: ^0.17.0
+  intl: any
 
   flutter:
+    sdk: flutter
+  flutter_web_plugins:
     sdk: flutter
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^6.0.0
 
-  # flutter pub run flutter_native_splash:create
+  # dart run flutter_native_splash:create
   flutter_native_splash: ^2.2.19
+
+  # dart run flutter_launcher_icons
+  flutter_launcher_icons: ^0.14.4
 
 flutter:
   uses-material-design: true
@@ -40,3 +44,12 @@ flutter:
 flutter_native_splash:
   color: "#FDB245"
   image: "app-icon.png"
+
+flutter_launcher_icons:
+  image_path: "app-icon.png"
+
+  web:
+    generate: true
+    image_path: "app-icon.png"
+    background_color: "#FDB245"
+    theme_color: "#FDB245"

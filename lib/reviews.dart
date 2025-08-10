@@ -20,10 +20,7 @@ class ReviewItem {
 }
 
 class ReviewList extends StatelessWidget {
-  const ReviewList({
-    super.key,
-    required this.reviews,
-  });
+  const ReviewList({super.key, required this.reviews});
 
   final List<ReviewItem> reviews;
 
@@ -46,10 +43,7 @@ class ReviewList extends StatelessWidget {
 }
 
 class ReviewCard extends StatelessWidget {
-  const ReviewCard({
-    super.key,
-    required this.item,
-  });
+  const ReviewCard({super.key, required this.item});
 
   final ReviewItem item;
 
@@ -76,8 +70,9 @@ class ReviewCard extends StatelessWidget {
                       children: [
                         if (item.avatar != null)
                           CircleAvatar(
-                            backgroundImage: NetworkImage(item.avatar!),
                             radius: 16,
+                            foregroundImage: NetworkImage(item.avatar!),
+                            child: const Icon(Icons.person),
                           ),
                         const SizedBox(width: 8),
                         Text(

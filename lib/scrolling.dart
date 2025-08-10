@@ -7,21 +7,14 @@ import 'package:flutter/rendering.dart';
 
 import 'scroll_animator.dart';
 
-typedef PositionedListItemBuilder = Widget Function(
-    BuildContext context, int index);
+typedef PositionedListItemBuilder =
+    Widget Function(BuildContext context, int index);
 
 class PositionedListItem {
-  PositionedListItem({
-    required Widget child,
-    this.name,
-    this.title,
-  }) : builder = ((context, index) => child);
+  PositionedListItem({required Widget child, this.name, this.title})
+    : builder = ((context, index) => child);
 
-  PositionedListItem.builder({
-    required this.builder,
-    this.name,
-    this.title,
-  });
+  PositionedListItem.builder({required this.builder, this.name, this.title});
 
   final String? name;
   final Widget? title;
@@ -80,9 +73,7 @@ class PositionedListSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PositionedListHeader(
-            child: title,
-          ),
+          PositionedListHeader(child: title),
           child,
         ],
       ),
@@ -99,10 +90,7 @@ class PositionedListHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.headlineMedium!,
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: child,
-      ),
+      child: Padding(padding: const EdgeInsets.all(32), child: child),
     );
   }
 }
@@ -127,12 +115,14 @@ class ExpandableCardInset extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BorderRadius borderRadius = this.borderRadius ??
+    BorderRadius borderRadius =
+        this.borderRadius ??
         const BorderRadius.vertical(bottom: Radius.circular(16));
 
     Widget header() {
       return Material(
         clipBehavior: Clip.antiAlias,
+        // ignore: deprecated_member_use
         color: outsideColor ?? Theme.of(context).colorScheme.background,
         borderRadius: borderRadius,
         elevation: 4,
@@ -158,9 +148,7 @@ class ExpandableCardInset extends StatelessWidget {
     }
 
     return ExpandableTheme(
-      data: ExpandableThemeData(
-        iconColor: Theme.of(context).iconTheme.color,
-      ),
+      data: ExpandableThemeData(iconColor: Theme.of(context).iconTheme.color),
       child: ExpandableNotifier(
         initialExpanded: true,
         child: Container(
@@ -171,12 +159,7 @@ class ExpandableCardInset extends StatelessWidget {
           ),
           child: Expandable(
             collapsed: header(),
-            expanded: Column(
-              children: [
-                header(),
-                child,
-              ],
-            ),
+            expanded: Column(children: [header(), child]),
           ),
         ),
       ),
@@ -217,10 +200,10 @@ class SliverGridDelegateWithMinCrossAxisExtent extends SliverGridDelegate {
     this.mainAxisSpacing = 0.0,
     this.crossAxisSpacing = 0.0,
     this.childAspectRatio = 1.0,
-  })  : assert(minCrossAxisExtent > 0),
-        assert(mainAxisSpacing >= 0),
-        assert(crossAxisSpacing >= 0),
-        assert(childAspectRatio > 0);
+  }) : assert(minCrossAxisExtent > 0),
+       assert(mainAxisSpacing >= 0),
+       assert(crossAxisSpacing >= 0),
+       assert(childAspectRatio > 0);
 
   final double minCrossAxisExtent;
   final double mainAxisSpacing;

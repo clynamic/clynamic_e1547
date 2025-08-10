@@ -27,9 +27,7 @@ class NavigationList extends StatelessWidget {
           children: [
             Flexible(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 1200,
-                ),
+                constraints: const BoxConstraints(maxWidth: 1200),
                 child: AnimatedSize(
                   duration: const Duration(milliseconds: 200),
                   child: BackdropScaffold(
@@ -41,14 +39,19 @@ class NavigationList extends StatelessWidget {
                       automaticallyImplyLeading: false,
                       actions: [
                         Tooltip(
-                          message: MaterialLocalizations.of(context)
-                              .openAppDrawerTooltip,
+                          message: MaterialLocalizations.of(
+                            context,
+                          ).openAppDrawerTooltip,
                           child: const NavigationToggleButton(),
                         ),
                       ],
                     ),
                     frontLayerElevation: 4,
                     frontLayerScrim: Colors.black54,
+                    frontLayerBackgroundColor: Theme.of(context)
+                        .colorScheme
+                        // ignore: deprecated_member_use
+                        .background,
                     backLayerBackgroundColor: Colors.transparent,
                     backLayer: NavigationBackLayer(
                       sections: sections,
@@ -93,7 +96,8 @@ class NavigationBackLayer extends StatelessWidget {
                 onTap: () {
                   Backdrop.of(context).concealBackLayer();
                   scrollController.scrollToIndex(
-                      index: sections.indexOf(section));
+                    index: sections.indexOf(section),
+                  );
                 },
                 child: Text(
                   section.name!,
@@ -111,19 +115,21 @@ class NavigationBackLayer extends StatelessWidget {
       if (children.indexOf(child) == 0) {
         separated.add(child);
       } else {
-        separated.add(Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text(
-                '•',
-                style: Theme.of(context).textTheme.headlineSmall,
+        separated.add(
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Text(
+                  '•',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
               ),
-            ),
-            child,
-          ],
-        ));
+              child,
+            ],
+          ),
+        );
       }
     }
 
@@ -132,10 +138,7 @@ class NavigationBackLayer extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Wrap(
-              alignment: WrapAlignment.end,
-              children: separated,
-            ),
+            child: Wrap(alignment: WrapAlignment.end, children: separated),
           ),
         ],
       ),
@@ -186,8 +189,9 @@ class _NavigationTitleState extends State<NavigationTitle> {
     return MouseRegion(
       cursor: show ? SystemMouseCursors.click : MouseCursor.defer,
       child: GestureDetector(
-        onTap:
-            show ? () => widget.scrollController.scrollToIndex(index: 0) : null,
+        onTap: show
+            ? () => widget.scrollController.scrollToIndex(index: 0)
+            : null,
         child: AnimatedOpacity(
           duration: const Duration(milliseconds: 200),
           opacity: show ? 1 : 0,
